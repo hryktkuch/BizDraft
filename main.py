@@ -40,7 +40,7 @@ if not firebase_admin._apps:
     })
 
 config = {
-    'apiKey': "AIzaSyCu0_syEmpt5sTKVJkPDu79PUug3KRSXuk",
+    'apiKey': FIREBASE_API_KEY,
     'authDomain': "bizdraft.firebaseapp.com",
     'databaseURL': "https://bizdraft.firebaseio.com",
     'projectId': "bizdraft",
