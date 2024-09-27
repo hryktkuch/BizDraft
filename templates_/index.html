@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firestore App</title>
+</head>
+<body>
+    <h1>welcome {{user}}</h1>
+    
+    <!-- データを追加するためのフォーム -->
+    <form id="book-form" method="POST" action="/add">
+        <input type="text" name="title" placeholder="Book Title" required>
+        <input type="text" name="author" placeholder="Author Name" required>
+        <button type="submit">Add Book</button>
+    </form>
+
+    <h2>Book List</h2>
+    <ul id="book-list">
+        <!-- ここにFirestoreのデータを表示する -->
+        {% for book in books %}
+        <li>{{ book['title'] }} by {{ book['author'] }}</li>
+        {% else %}
+        <li>No books available</li>
+        {% endfor %}
+    </ul>
+
+    <form id="job" method="POST" action="/job">
+        <input type="text" name="job" placeholder="job" required>
+        <button type="submit">guess</button>
+    </form>
+
+    <a href="/logout">Logout</a>
+
+</body>
+</html>

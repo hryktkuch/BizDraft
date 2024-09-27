@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <!--<meta name=description content="This site was generated with Anima. www.animaapp.com"/>-->
+    <!-- <link rel="shortcut icon" type=image/png href="https://animaproject.s3.amazonaws.com/home/favicon.png" /> -->
+    <meta name="viewport" content="width=1366, maximum-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
+    <meta name="og:type" content="website" />
+    <meta name="twitter:card" content="photo" />
+    <link rel="stylesheet" type="text/css" href="./static/reset.css" />
+    <link rel="stylesheet" type="text/css" href="./static/signup.css" />
+    <link rel="stylesheet" type="text/css" href="./static/styleguide.css" />
+    <link rel="stylesheet" type="text/css" href="./static/globals.css" />
+  </head>
+  <body style="margin: 0; background: #ffffff">
+    <input type="hidden" id="anPageName" name="page" value="signup" />
+    <div class="signup screen">
+      <div class="text"><h1 class="text-title-page title-page">BizDraft</h1></div>
+        <form method="POST" action="/signup" id="signup-form">
+          <div class="form-register single-linebody-base">
+            <div class="input-field input-1">
+              <div class="label label-2">メールアドレス</div>
+              <input type="email" name="email" id="email" placeholder="Email" class="input input-1" required>
+            </div>
+            <div class="input-field input-1">
+              <div class="label label-2">パスワード</div>
+              <input type="password" name="password" id="password" placeholder="Password" class="input input-1" required>
+            </div>
+            <div class="checkbox-field checkbox-1">
+              <div class="checkbox-and-label">
+                <div class="checkbox checkbox-1"><img class="check" src="./static/img/check.svg" alt="Check" /></div>
+                <div class="label-1 label-2 single-linebody-base">利用規約に同意します。</div>
+              </div>
+            </div>
+            <div class="button-group">
+              <button type="submit" class="button button-1 single-linebody-base">登録</button>
+            </div>
+          </div>
+        </form>
+        <a href="/login">
+          <div class="text"><div class="text-link single-linebody-base">登録済みの場合はログインしてください</div></div>
+        </a>
+    </div>
+  </body>
+</html>

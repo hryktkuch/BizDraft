@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <!--<meta name=description content="This site was generated with Anima. www.animaapp.com"/>-->
+    <!-- <link rel="shortcut icon" type=image/png href="https://animaproject.s3.amazonaws.com/home/favicon.png" /> -->
+    <meta name="viewport" content="width=1366, maximum-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
+    <meta name="og:type" content="website" />
+    <meta name="twitter:card" content="photo" />
+    <link rel="stylesheet" type="text/css" href="./static/reset.css" />
+    <link rel="stylesheet" type="text/css" href="./static/dashboard.css" />
+    <link rel="stylesheet" type="text/css" href="./static/styleguide.css" />
+    <link rel="stylesheet" type="text/css" href="./static/globals.css" />
+  </head>
+  <body style="margin: 0; background: #ffffff">
+    <input type="hidden" id="anPageName" name="page" value="dashboard" />
+    <div class="dashboard screen">
+      <header class="header">
+        <h1 class="title inter-bold-black-32px">BizDraft</h1>
+        <div class="frame-2">
+          <div class="button"><div class="button-1 single-linebody-base">専門家に相談する</div></div>
+          <img class="frame-item" src="./static/img/help-circle-2.svg" alt="Help circle" />
+          <a href="/logout"><img class="frame-item" src="./static/img/user-2.svg" alt="User" /></a>
+        </div>
+      </header>
+      <div class="frame-3">
+        <div class="frame-4">
+          <div class="text-heading">
+            <div class="text-heading-1 heading">山田コンサルティング株式会社の創業計画書</div>
+          </div>
+          <div class="text">
+            <div class="text-1 single-linebody-base">
+              上の項目から順に入力すると、続く項目の入力をAIがサポートします。<br />項目の入力が完了すると、チェックマーク☑がつきます。
+            </div>
+          </div>
+        </div>
+        <div id="setup">
+          {% if status_setup == 0 %}
+          <div class="frame">
+            <div class="text"><div class="text-subheading subheading">初期設定</div></div>
+            <div class="section-title-button">
+              <div class="frame-1">
+                <div class="rectangle-1"></div>
+                <div class="text_label body-strong">初期設定</div>
+              </div>
+            </div>
+          </div>
+          {% elif status_setup == 1 %}
+          <div class="frame">
+            <div class="text"><div class="text-subheading subheading">初期設定</div></div>
+            <div class="section-title-button">
+              <div class="frame-1">
+                <div class="frame-5">
+                  <div class="rectangle-2"></div>
+                </div>
+                <div class="text_label body-strong">初期設定</div>
+              </div>
+            </div>
+          </div>
+          {% elif status_setup == 2 %}
+          <div class="frame">
+            <div class="text"><div class="text-subheading subheading">初期設定</div></div>
+            <div class="section-title-button">
+              <div class="frame-1">
+                <div class="frame-6">
+                  <img class="vector-1-stroke" src="./static/img/vector-1--stroke-.svg" alt="Vector 1 (Stroke)" />
+                </div>
+                <div class="text_label body-strong">初期設定</div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        <div id="yourself">
+          {% if status_yourself == 0 %}
+          <div class="frame">
+            <div class="text"><div class="text-subheading subheading">あなた自身に関する項目</div></div>
+            <div class="section-title-button">
+              <div class="frame-1">
+                <div class="rectangle-1-6"></div>
+                <div class="text_label body-strong">経営者の略歴・創業の動機</div>
+              </div>
+            </div>
+          </div>
+          {% elif status_yourself == 1 %}
+          <div class="frame">
+            <div class="text"><div class="text-subheading subheading">あなた自身に関する項目</div></div>
+            <div class="section-title-button">
+              <div class="frame-1">
+                <div class="frame-7">
+                  <div class="rectangle-2"></div>
+                </div>
+                <div class="text_label body-strong">経営者の略歴・創業の動機</div>
+              </div>
+            </div>
+          </div>
+          {% elif status_yourself == 2 %}
+          <div class="frame">
+            <div class="text"><div class="text-subheading subheading">あなた自身に関する項目</div></div>
+            <div class="section-title-button">
+              <div class="frame-1">
+                <div class="frame-8">
+                  <img class="vector-1-stroke" src="./static/img/vector-1--stroke-.svg" alt="Vector 1 (Stroke)" />
+                </div>
+                <div class="text_label body-strong">経営者の略歴・創業の動機</div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        <div id="business">
+          {% if status_business == 0 %}
+          <div class="frame">
+            <div class="text"><div class="text-subheading subheading">あなたの事業に関する項目</div></div>
+            <div class="section-title-button">
+              <div class="frame-1">
+                <div class="rectangle-1-6"></div>
+                <div class="text_label body-strong">取扱商品・サービス</div>
+              </div>
+            </div>
+          </div>
+          {% elif status_business == 1 %}
+          <div class="frame">
+            <div class="text"><div class="text-subheading subheading">あなたの事業に関する項目</div></div>
+            <div class="section-title-button">
+              <div class="frame-1">
+                <div class="frame-9">
+                  <div class="rectangle-2"></div>
+                </div>
+                <div class="text_label body-strong">取扱商品・サービス</div>
+              </div>
+            </div>
+          </div>
+          {% elif status_business == 2 %}
+          <div class="frame">
+            <div class="text"><div class="text-subheading subheading">あなたの事業に関する項目</div></div>
+            <div class="section-title-button">
+              <div class="frame-1">
+                <div class="frame-10">
+                  <img class="vector-1-stroke" src="./static/img/vector-1--stroke-.svg" alt="Vector 1 (Stroke)" />
+                </div>
+                <div class="text_label body-strong">取扱商品・サービス</div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        <div id="funds">
+          {% if status_funds == 0 %}
+          <div class="frame">
+            <div class="text"><div class="text-subheading subheading">事業の資金に関する項目</div></div>
+            <div class="section-title-button">
+              <div class="frame-1">
+                <div class="rectangle-1-6"></div>
+                <div class="text_label body-strong">売上・従業員・事業の見通し・資金等</div>
+              </div>
+            </div>
+          </div>
+          {% elif status_funds == 1 %}
+          <div class="frame">
+            <div class="text"><div class="text-subheading subheading">事業の資金に関する項目</div></div>
+            <div class="section-title-button">
+              <div class="frame-1">
+                <div class="frame-11">
+                  <div class="rectangle-2"></div>
+                </div>
+                <div class="text_label body-strong">売上・従業員・事業の見通し・資金等</div>
+              </div>
+            </div>
+          </div>
+          {% elif status_funds == 2 %}
+          <div class="frame">
+            <div class="text"><div class="text-subheading subheading">事業の資金に関する項目</div></div>
+            <div class="section-title-button">
+              <div class="frame-1">
+                <div class="frame-12">
+                  <img class="vector-1-stroke" src="./static/img/vector-1--stroke-.svg" alt="Vector 1 (Stroke)" />
+                </div>
+                <div class="text_label body-strong">売上・従業員・事業の見通し・資金等</div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        <div id="partner">
+          {% if status_partner == 0 %}
+          <div class="frame">
+            <div class="text"><div class="text-subheading subheading">取引先・関連企業に関する項目</div></div>
+            <div class="section-title-button">
+              <div class="frame-1">
+                <div class="rectangle-1-6"></div>
+                <div class="text_label body-strong">取引先・取引関係・関連企業</div>
+              </div>
+            </div>
+          </div>
+          {% elif status_partner == 1 %}
+          <div class="frame">
+            <div class="text"><div class="text-subheading subheading">取引先・関連企業に関する項目</div></div>
+            <div class="section-title-button">
+              <div class="frame-1">
+                <div class="frame-13">
+                  <div class="rectangle-2"></div>
+                </div>
+                <div class="text_label body-strong">取引先・取引関係・関連企業</div>
+              </div>
+            </div>
+          </div>
+          {% elif status_partner == 2 %}
+          <div class="frame">
+            <div class="text"><div class="text-subheading subheading">取引先・関連企業に関する項目</div></div>
+            <div class="section-title-button">
+              <div class="frame-1">
+                <div class="frame-14">
+                  <img class="vector-1-stroke" src="./static/img/vector-1--stroke-.svg" alt="Vector 1 (Stroke)" />
+                </div>
+                <div class="text_label body-strong">取引先・取引関係・関連企業</div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        <div id="others">
+          {% if status_others == 0 %}
+          <div class="frame">
+            <div class="text"><div class="text-subheading subheading">その他の項目</div></div>
+            <div class="section-title-button">
+              <div class="frame-1">
+                <div class="rectangle-1-6"></div>
+                <div class="text_label body-strong">借入状況・自由記述欄</div>
+              </div>
+            </div>
+          </div>
+          {% elif status_others == 1 %}
+          <div class="frame">
+            <div class="text"><div class="text-subheading subheading">その他の項目</div></div>
+            <div class="section-title-button">
+              <div class="frame-1">
+                <div class="frame-15">
+                  <div class="rectangle-2"></div>
+                </div>
+                <div class="text_label body-strong">借入状況・自由記述欄</div>
+              </div>
+            </div>
+          </div>
+          {% elif status_others == 2 %}
+          <div class="frame">
+            <div class="text"><div class="text-subheading subheading">その他の項目</div></div>
+            <div class="section-title-button">
+              <div class="frame-1">
+                <div class="frame-16">
+                  <img class="vector-1-stroke" src="./static/img/vector-1--stroke-.svg" alt="Vector 1 (Stroke)" />
+                </div>
+                <div class="text_label body-strong">借入状況・自由記述欄</div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        <div class="button-2"><div class="button-3 single-linebody-base">書類を確認</div></div>
+      </div>
+    </div>
+    <script>
+      document.getElementById('setup').addEventListener('click', function() {
+        window.location.href = '/setup';
+      });
+      document.getElementById('yourself').addEventListener('click', function() {
+        window.location.href = '/yourself';
+      });
+      document.getElementById('business').addEventListener('click', function() {
+        window.location.href = '/business';
+      });
+      document.getElementById('funds').addEventListener('click', function() {
+        window.location.href = '/funds';
+      });
+      document.getElementById('partner').addEventListener('click', function() {
+        window.location.href = '/partner';
+      });
+      document.getElementById('others').addEventListener('click', function() {
+        window.location.href = '/others';
+      });
+    </script>
+  </body>
+</html>

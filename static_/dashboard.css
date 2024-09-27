@@ -1,0 +1,293 @@
+/* screen - dashboard */
+
+.dashboard {
+  align-items: flex-start;
+  background-color: var(--white);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.dashboard .title {
+  letter-spacing: -0.96px;
+  line-height: 38.4px;
+}
+
+.dashboard .frame-22 {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 24px;
+  justify-content: flex-end;
+  margin-bottom: -1.00px;
+  margin-top: -1.00px;
+  position: relative;
+}
+
+.dashboard .button {
+  align-items: center;
+  background-color: var(--mercury);
+  border: 1px solid;
+  border-color: var(--sonic-silver);
+  border-radius: 8px;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 8px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 12px;
+  position: relative;
+}
+
+.dashboard .button-1 {
+  color: var(--eerie-black);
+  font-weight: 400;
+  line-height: 16px;
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.dashboard .frame-11 {
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 24px;
+  padding: 64px 0px;
+  position: relative;
+  width: 100%;
+}
+
+.dashboard .frame-27 {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+.dashboard .text-heading {
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  height: 29px;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+.dashboard .text-heading-1 {
+  color: var(--eerie-black);
+  font-weight: 600;
+  line-height: 28.8px;
+  margin-top: -1.00px;
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.dashboard .text {
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  position: relative;
+}
+
+.dashboard .text-1 {
+  color: var(--eerie-black);
+  font-weight: 400;
+  line-height: 22.4px;
+  margin-top: -1.00px;
+  position: relative;
+  width: fit-content;
+}
+
+.dashboard .frame {
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+.dashboard .text-subheading {
+  color: var(--eerie-black);
+  font-weight: 400;
+  line-height: 24.0px;
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.dashboard .section-title-button {
+  align-items: center;
+  border: 1px solid;
+  border-color: var(--sonic-silver-2);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  height: 64px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0px 24px;
+  position: relative;
+  width: 360px;
+}
+
+.dashboard .frame-13 {
+  align-items: center;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 16px;
+  position: relative;
+  width: 100%;
+}
+
+.dashboard .frame-17 {
+  border: 2px solid;
+  border-color: var(--sonic-silver-2);
+  border-radius: 4px;
+  height: 24px;
+  position: relative;
+  width: 24px;
+}
+
+.dashboard .vector-1-stroke {
+  height: 22px;
+  left: 1px;
+  position: absolute;
+  top: -2px;
+  width: 28px;
+}
+
+.dashboard .text_label {
+  color: var(--eerie-black);
+  font-weight: 600;
+  line-height: 22.4px;
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.dashboard .frame-17-1 {
+  border: 2px solid;
+  border-color: var(--sonic-silver-2);
+  border-radius: 4px;
+  height: 24px;
+  position: relative;
+  width: 24px;
+}
+
+.dashboard .rectangle-2 {
+  background-color: #009951;
+  height: 4px;
+  left: 2px;
+  position: relative;
+  top: 8px;
+  width: 16px;
+}
+
+.dashboard .rectangle-1 {
+  border: 2px solid;
+  border-color: var(--sonic-silver-2);
+  border-radius: 4px;
+  height: 24px;
+  position: relative;
+  width: 24px;
+}
+
+.dashboard .button-2 {
+  align-items: center;
+  background-color: var(--heavy-metal);
+  border: 1px solid;
+  border-color: var(--heavy-metal);
+  border-radius: 8px;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 8px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 12px;
+  position: relative;
+}
+
+.dashboard .button-3 {
+  color: var(--cultured-pearl);
+  font-weight: 400;
+  line-height: 16px;
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.dashboard .tooltip {
+  align-items: center;
+  background-color: var(--white);
+  border: 1px solid;
+  border-color: var(--alto);
+  border-radius: 8px;
+  box-shadow: 0px 1px 4px #0c0c0d0d , 0px 1px 4px #0c0c0d1a;
+  display: inline-flex;
+  flex-direction: column;
+  left: 1032px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 62px;
+}
+
+.dashboard .beak {
+  height: 11px;
+}
+
+.dashboard .beak-stroke {
+  height: 6px;
+}
+
+.dashboard .title-1 {
+  color: var(--black);
+  font-weight: 600;
+  line-height: 22.4px;
+  text-align: center;
+}
+
+.dashboard .body-text {
+  color: var(--black);
+  font-weight: 400;
+  line-height: 19.6px;
+  position: relative;
+  text-align: center;
+  width: fit-content;
+}
+
+.dashboard .beak-1 {
+  left: 153px;
+  position: absolute;
+  top: -5px;
+  width: 11px;
+}
+
+.dashboard .rectangle-1-4 {
+  border: 2px solid;
+  border-color: var(--sonic-silver-2);
+  border-radius: 4px;
+  height: 24px;
+  position: relative;
+  width: 24px;
+}
+
+.dashboard .title-2 {
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}

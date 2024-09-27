@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <!--<meta name=description content="This site was generated with Anima. www.animaapp.com"/>-->
+    <!-- <link rel="shortcut icon" type=image/png href="https://animaproject.s3.amazonaws.com/home/favicon.png" /> -->
+    <meta name="viewport" content="width=1366, maximum-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
+    <meta name="og:type" content="website" />
+    <meta name="twitter:card" content="photo" />
+    <link rel="stylesheet" type="text/css" href="./static/reset.css" />
+    <link rel="stylesheet" type="text/css" href="./static/business.css" />
+    <link rel="stylesheet" type="text/css" href="./static/styleguide.css" />
+    <link rel="stylesheet" type="text/css" href="./static/globals.css" />
+  </head>
+  <body style="margin: 0; background: #ffffff">
+    <input type="hidden" id="anPageName" name="page" value="business" />
+    <div class="business screen">
+      <header class="header">
+        <h1 class="title inter-bold-black-32px">BizDraft</h1>
+        <div class="frame-2">
+          <div class="button"><div class="button-1 single-linebody-base">専門家に相談する</div></div>
+          <img class="frame-item" src="./static/img/help-circle-2.svg" alt="Help circle" />
+          <img class="frame-item" src="./static/img/user-2.svg" alt="User" />
+        </div>
+      </header>
+      <form method="POST" action="/business_save" class="frame-3 single-linebody-base">
+        <div class="frame-3 single-linebody-base">
+          <div class="text-heading"><div class="text-heading-1 heading">あなたの事業に関する項目</div></div>
+          <div class="text-s"><div class="text-subheading subheading">事業内容</div></div>
+          <div class="textarea-field textarea-1">
+            <div class="label">事業内容</div>
+            <textarea class="textarea textarea-1">{{data.business_detail}}</textarea>
+          </div>
+          <div class="text-s"><div class="text-subheading subheading">取扱商品・サービスの内容</div></div>
+          <div class="frame-4">
+            <div class="input-field input-1 single-linebody-base">
+              <div class="label">商品・サービスの内容１</div>
+              <input type="text" name="product_1_detail" value="{{data.product_1_detail}}" class="input input-1">
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field-1 single-linebody-base">
+                <div class="label">その売上シェア</div>
+                <input type="number" name="product_1_share" value="{{data.product_1_share}}" class="input input-1">
+              </div>
+              <div class="frame"><div class="text-4 single-linebody-base">%</div></div>
+            </div>
+          </div>
+          <div class="frame-5">
+            <div class="input-field input-1 single-linebody-base">
+              <div class="label">商品・サービスの内容２</div>
+              <input type="text" name="product_2_detail" value="{{data.product_2_detail}}" class="input input-1">
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field-1 single-linebody-base">
+                <div class="label">その売上シェア</div>
+                <input type="number" name="product_2_share" value="{{data.product_2_share}}" class="input input-1">
+              </div>
+              <div class="frame"><div class="text-4 single-linebody-base">%</div></div>
+            </div>
+          </div>
+          <div class="frame-6">
+            <div class="input-field input-1 single-linebody-base">
+              <div class="label">商品・サービスの内容３</div>
+              <input type="text" name="product_3_detail" value="{{data.product_3_detail}}"  class="input input-1">
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field-1 single-linebody-base">
+                <div class="label">その売上シェア</div>
+                <input type="number" name="product_3_share" value="{{data.product_3_share}}"  class="input input-1">
+              </div>
+              <div class="frame"><div class="text-4 single-linebody-base">%</div></div>
+            </div>
+          </div>
+          <div class="frame-7">
+            <div class="button"><div class="button-1 single-linebody-base">入力欄を追加</div></div>
+            <div class="text-s">
+              <div class="text-small body-small">
+                入力欄は最大3個まで追加できます。<br />売上シェアの合計は100％になるようにしてください。
+              </div>
+            </div>
+          </div>
+          <div class="text-s"><div class="text-subheading subheading">セールスポイント</div></div>
+          <div class="ai_suggestion">
+            <div class="text">
+              <div class="text-1 single-linebody-base">
+                下の空欄に入力して「AIサポート生成」ボタンを押すと<br />これまでの入力内容を反映したあなた専用の文例が提示されます。
+              </div>
+            </div>
+            <div class="frame-1">
+              <div class="input-field-1 single-linebody-base">
+                <div class="label">自身・自社の強み（あれば）</div>
+                <input type="text" name="strength_sentence" value="{{data.strength_sentence}}" id="strength_sentence" class="input input-1">
+              </div>
+              <button type="button" id="strength_generate" class="button button-1 single-linebody-base">AIサポート生成</button>
+            </div>
+            <div class="textarea-field-7 single-linebody-base">
+              <div class="label">AIによる文例</div>
+              <textarea name="strength_ai" class="textarea textarea-1" id="strength_ai" readonly>{{data.strength_ai}}</textarea>
+            </div>
+            <button type="button" class="button button-1 single-linebody-base" id="strength_insert">下の本文に挿入</button>
+          </div>
+          <div class="textarea-field-7">
+            <div class="label">本文</div>
+            <textarea name="strength_detail" id="strength_detail" class="textarea textarea-1">{{data.strength_detail}}</textarea>
+          </div>
+          <div class="text-s"><div class="text-subheading subheading">販売ターゲット・販売戦略</div></div>
+          <div class="ai_suggestion">
+            <div class="text">
+              <div class="text-1 single-linebody-base">
+                下の空欄に入力して「AIサポート生成」ボタンを押すと<br />これまでの入力内容を反映したあなた専用の文例が提示されます。
+              </div>
+            </div>
+            <div class="frame-1">
+              <div class="input-field-1 single-linebody-base">
+                <div class="label">想定ターゲット（あれば）</div>
+                <input type="text" name="target_sentence" value="{{data.target_sentence}}" id="target_sentence" class="input input-1">
+              </div>
+              <button type="button" id="target_generate" class="button button-1 single-linebody-base">AIサポート生成</button>
+            </div>
+            <div class="textarea-field-7 single-linebody-base">
+              <div class="label">AIによる文例</div>
+              <textarea name="target_ai" class="textarea textarea-1" id="target_ai" readonly>{{data.target_ai}}</textarea>
+            </div>
+            <button type="button" id="target_insert" class="button button-1 single-linebody-base">下の本文に挿入</button>
+          </div>
+          <div class="textarea-field-7">
+            <div class="label">本文</div>
+            <textarea name="target_detail" id="target_detail" class="textarea textarea-1">{{data.target_detail}}</textarea>
+          </div>
+          <div class="text-s"><div class="text-subheading subheading">競合・市場など企業を取り巻く状況</div></div>
+          <div class="ai_suggestion">
+            <div class="text">
+              <div class="text-1 single-linebody-base">
+                下の空欄に入力して「AIサポート生成」ボタンを押すと<br />これまでの入力内容を反映したあなた専用の文例が提示されます。
+              </div>
+            </div>
+            <div class="frame-1">
+              <div class="input-field-1 single-linebody-base">
+                <div class="label">具体的な競合企業（あれば）</div>
+                <input type="text" name="competitor_sentence" value="{{data.competitor_sentence}}" id="competitor_sentence" class="input input-1">
+              </div>
+              <button type="button" id="competitor_generate" class="button button-1 single-linebody-base">AIサポート生成</button>
+            </div>
+            <div class="textarea-field-7 single-linebody-base">
+              <div class="label">AIによる文例</div>
+              <textarea name="competitor_ai" class="textarea textarea-1" id="competitor_ai" readonly>{{data.competitor_ai}}</textarea>
+            </div>
+            <button type="button" id="competitor_insert" class="button button-1 single-linebody-base">下の本文に挿入</button>
+          </div>
+          <div class="textarea-field-7">
+            <div class="label">本文</div>
+            <textarea name="competitor_detail" id="competitor_detail" class="textarea textarea-1">{{data.competitor_detail}}</textarea>
+          </div>
+          <div class="frame-8">
+            <div class="button-group">
+              <button type="submit" name="action" value="save_temp" id="save_temp" class="button-2 button-1 single-linebody-base">一時保存</button>
+              <button type="submit" name="action" value="save_complete" id="save_complete" class="button-3 button-4 single-linebody-base">保存して完了</button>
+            </div>
+            <div class="text">
+              <div class="text-small body-small">
+                一時保存：保存してメニューに戻ります。項目にチェックは付きません。<br />保存して完了：項目にチェックを付けます。内容は後から変更できます。
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <script>
+      document.getElementById('strength_generate').addEventListener('click', function() {
+        console.log('strength_generate');
+        const inputSentence = document.getElementById('strength_sentence').value;
+        fetch('/strength_generate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ strength_sentence: inputSentence })
+        })
+        .then(response => response.json())
+        .then(data => {
+          const aiGeneratedTextDiv = document.getElementById('strength_ai');
+          aiGeneratedTextDiv.value = data.ai_generated_text;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      });
+
+      document.getElementById('target_generate').addEventListener('click', function() {
+        console.log('target_generate');
+        const inputSentence = document.getElementById('target_sentence').value;
+        fetch('/target_generate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ target_sentence: inputSentence })
+        })
+        .then(response => response.json())
+        .then(data => {
+          const aiGeneratedTextDiv = document.getElementById('target_ai');
+          aiGeneratedTextDiv.value = data.ai_generated_text;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      });
+
+      document.getElementById('competitor_generate').addEventListener('click', function() {
+        console.log('competitor_generate');
+        const inputSentence = document.getElementById('competitor_sentence').value;
+        fetch('/competitor_generate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ competitor_sentence: inputSentence })
+        })
+        .then(response => response.json())
+        .then(data => {
+          const aiGeneratedTextDiv = document.getElementById('competitor_ai');
+          aiGeneratedTextDiv.value = data.ai_generated_text;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      });
+
+      document.getElementById('strength_insert').addEventListener('click', function() {
+        const insert = document.getElementById('strength_ai').value;
+        document.getElementById('strength_detail').value += insert;
+      });
+      document.getElementById('target_insert').addEventListener('click', function() {
+        const insert = document.getElementById('target_ai').value;
+        document.getElementById('target_detail').value += insert;
+      });
+      document.getElementById('competitor_insert').addEventListener('click', function() {
+        const insert = document.getElementById('competitor_ai').value;
+        document.getElementById('competitor_detail').value += insert;
+      });
+
+    </script>
+  </body>
+</html>

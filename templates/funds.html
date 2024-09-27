@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <!--<meta name=description content="This site was generated with Anima. www.animaapp.com"/>-->
+    <!-- <link rel="shortcut icon" type=image/png href="https://animaproject.s3.amazonaws.com/home/favicon.png" /> -->
+    <meta name="viewport" content="width=1366, maximum-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
+    <meta name="og:type" content="website" />
+    <meta name="twitter:card" content="photo" />
+    <link rel="stylesheet" type="text/css" href="./static/reset.css" />
+    <link rel="stylesheet" type="text/css" href="./static/funds.css" />
+    <link rel="stylesheet" type="text/css" href="./static/styleguide.css" />
+    <link rel="stylesheet" type="text/css" href="./static/globals.css" />
+  </head>
+  <body style="margin: 0; background: #ffffff">
+    <input type="hidden" id="anPageName" name="page" value="funds" />
+    <div class="funds screen">
+      <header class="header">
+        <h1 class="title inter-bold-black-32px">BizDraft</h1>
+        <div class="frame-3">
+          <div class="button"><div class="button-1 single-linebody-base">専門家に相談する</div></div>
+          <img class="frame-item" src="./static/img/help-circle-2.svg" alt="Help circle" />
+          <img class="frame-item" src="./static/img/user-3.svg" alt="User" />
+        </div>
+      </header>
+      <form method="POST" action="/funds_save" class="frame-4 single-linebody-base">
+        <div class="frame-4 single-linebody-base">
+          <div class="text"><div class="text-heading heading">事業の資金に関する項目</div></div>
+          <div class="text"><div class="text-subheading subheading">創業当初の売上に関する項目</div></div>
+          <div class="x-field">
+            <label for="salestype" class="label">入力内容</label>
+            <select name="salestype" id="salestype" class="select select-1">
+              <option value="1" {% if data.salestype=='1' %} selected {% endif %}>客単価・営業日等を入力する（飲食・小売業向け）</option>
+              <option value="2" {% if data.salestype=='2' %} selected {% endif %}>受注単価を入力する（建設・製造業向け）</option>
+              <option value="3" {% if data.salestype=='3' %} selected {% endif %}>単価を入力しない</option>
+            </select>
+          </div>
+          <article class="frame" id="kouri" {% if data.salestype=='1' %} style="display:block;" {% else %} style="display:none;" {% endif %}>
+            <div class="frame">
+              <div class="input-with-unit">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label">客単価</div>
+                  <input type="number" name="price_per_customer" class="input input-2" oninput="calculateMonthlySales()" value="{{data.price_per_customer}}">
+                </div>
+                <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+              </div>
+              <div class="input-with-unit">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label">月の営業日数</div>
+                  <input type="number" name="number_of_working_days" class="input input-2" oninput="calculateMonthlySales()" value="{{data.number_of_working_days}}">
+                </div>
+                <div class="frame-1"><div class="text-1 single-linebody-base">日</div></div>
+              </div>
+              <div class="input-with-unit">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label">予想される来客数／日</div>
+                  <input type="number" name="number_of_customers" class="input input-2" oninput="calculateMonthlySales()" value="{{data.number_of_customers}}">
+                </div>
+                <div class="frame-1"><div class="text-1 single-linebody-base">人／日</div></div>
+              </div>
+              <div class="text-2">
+                <div class="text-3 single-linebody-base">
+                  創業当初の売上高は<span id="monthly_sales">0</span>円／月になります。<br />下の「創業当初の売上高」に入力しました。
+                </div>
+              </div>
+              <div class="x-field single-linebody-base">
+                <div class="label">定休日</div>
+                <input type="text" name="holiday" class="input input-2" value="{{data.holiday}}">
+              </div>
+              <div class="frame-2">
+                <article class="input-with-unit-small">
+                  <div class="input-field input-2 single-linebody-base">
+                    <div class="label">営業開始時間</div>
+                    <input type="number" name="work_from" class="input-1 input-2" value="{{data.work_from}}">
+                  </div>
+                  <div class="frame-1"><div class="text-1 single-linebody-base">時から</div></div>
+                </article>
+                <article class="input-with-unit-small">
+                  <div class="input-field input-2 single-linebody-base">
+                    <div class="label">営業終了時間</div>
+                    <input type="number" name="work_to" class="input-1 input-2" value="{{data.work_to}}">
+                  </div>
+                  <div class="frame-1"><div class="text-1 single-linebody-base">時まで</div></div>
+                </article>
+              </div>
+            </div>
+          </article>
+
+          <div class="frame" id="seizou" {% if data.salestype=='2' %} style="display:block;" {% else %} style="display:none;" {% endif %}>
+            <div class="frame">
+              <div class="input-with-unit">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label">受注単価</div>
+                  <input type="number" name="unit_price" class="input input-2" oninput="calculateMonthlySales2()" value="{{data.unit_price}}">
+                </div>
+                <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+              </div>
+              <div class="input-with-unit">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label">予想される受注件数／月</div>
+                  <input type="number" name="number_of_units" class="input input-2" oninput="calculateMonthlySales2()" value="{{data.number_of_units}}">
+                </div>
+                <div class="frame-1"><div class="text-1 single-linebody-base">人</div></div>
+              </div>
+              <div class="text-2">
+                <div class="text-3 single-linebody-base">
+                  創業当初の売上高は<span id="monthly_sales2">0</span>円／月になります。<br />下の「創業当初の売上高」に入力しました。
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-subheading-1"><div class="text-subheading subheading">従業員に関する項目</div></div>
+          <div class="frame">
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">常勤役員の人数（法人のみ）</div>
+                <input type="number" name="officer" id="officer" class="input input-2" oninput="calculateOfficerSalary()" value="{{data.officer}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">人</div></div>
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">常勤役員の給与（法人のみ）</div>
+                <input type="number" name="officer_salary" id="officer_salary" class="input input-2" oninput="calculateOfficerSalary()" value="{{data.officer_salary}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円／月</div></div>
+            </div>
+            <div class="text-2">
+              <div class="text-3 single-linebody-base">
+                役員報酬は<span id="officer_salary_sum">0</span>円／月になります。
+              </div>
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">従業員数（3ヶ月以上継続雇用者、家族・パート従業員を含む）</div>
+                <input type="number" name="employee" id="employee" class="input input-2" oninput="calculateEmployeeSalary()" value="{{data.employee}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">人</div></div>
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">従業員の給与</div>
+                <input type="number" name="employee_salary" id="employee_salary" class="input input-2" oninput="calculateEmployeeSalary()" value="{{data.employee_salary}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円／月</div></div>
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">従業員のうち、家族従業員</div>
+                <input type="number" name="family_member" id="family_member" class="input input-2" oninput="calculateEmployeeSalary()" value="{{data.family_member}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">人</div></div>
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">家族従業員の給与</div>
+                <input type="number" name="family_member_salary" id="family_member_salary" class="input input-2" oninput="calculateEmployeeSalary()" value="{{family_member_salary}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円／月</div></div>
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">従業員のうち、パート従業員</div>
+                <input type="number" name="part_time" id="part_time" class="input input-2" oninput="calculateEmployeeSalary()" value="{{data.part_time}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">人</div></div>
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">パート従業員の給与</div>
+                <input type="number" name="part_time_salary" id="part_time_salary" class="input input-2" oninput="calculateEmployeeSalary()" value="{{data.part_time_salary}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円／月</div></div>
+            </div>
+            <div class="text-2">
+              <div class="text-3 single-linebody-base">
+                従業員の人件費は<span id="employee_salary_sum" name="employee_salary_sum">0</span>円／月になります。<br />
+                役員報酬と合わせた人件費は<span id="salary_sum" name="salary_sum">0</span>円／月になります。<br />
+                下の「創業当初の人件費」に入力しました。
+              </div>
+            </div>
+            <div class="frame-2">
+              <article class="select-field select-1">
+                <div class="label">人件費の支払い　締め日</div>
+                <input type="number" name="salary_closingday" class="select select-1" value="{{data.salary_closingday}}">
+              </article>
+              <article class="select-field-4">
+                <div class="label">支払日</div>
+                <input type="number" name="salary_payday" class="select select-1" value="{{data.salary_payday}}">
+              </article>
+            </div>
+            <div class="frame-2">
+              <article class="input-with-unit-small">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label">ボーナスの支給月１</div>
+                  <input type="number" name="bonus_month_1" class="input-1 input-2" value="{{data.bonus_month_1}}">
+                </div>
+                <div class="frame-1"><div class="text-1 single-linebody-base">月</div></div>
+              </article>
+              <article class="input-with-unit-small">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label">ボーナスの支給月２</div>
+                  <input type="number" name="bonus_month_2" class="input-1 input-2" value="{{data.bonus_month_2}}">
+                </div>
+                <div class="frame-1"><div class="text-1 single-linebody-base">月</div></div>
+              </article>
+            </div>
+          </div>
+          <div class="text-subheading-1"><div class="text-subheading subheading">事業資金の調達方法</div></div>
+          <div class="frame">
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">自己資金</div>
+                <input type="number" name="self_fund" id="self_fund" class="input input-2" oninput="calculateSum()" value="{{data.self_fund}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">親、兄弟、知人、友人等からの借入</div>
+                <input type="number" name="family_fund" id="family_fund" class="input input-2" oninput="calculateSum()" value="{{data.family_fund}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">日本政策金融公庫　国民生活事業からの借入</div>
+                <input type="number" name="japan_fund" id="japan_fund" class="input input-2" oninput="calculateSum()" value="{{data.japan_fund}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">日本政策金融公庫　国民生活事業からの借入の利率</div>
+                <input type="number" name="japan_fund_rate" id="japan_fund_rate" class="input input-2" oninput="calculateSum()" value="{{data.japan_fund_rate}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">％</div></div>
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">他の金融機関等からの借入</div>
+                <input type="number" name="bank_fund" id="bank_fund" class="input input-2" oninput="calculateSum()" value="{{data.bank_fund}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">他の金融機関等からの借入の利率</div>
+                <input type="number" name="bank_fund_rate" id="bank_fund_rate" class="input input-2" oninput="calculateSum()" value="{{data.bank_fund_rate}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">％</div></div>
+            </div>
+            <div class="text-2">
+              <div class="text-4 single-linebody-base">調達資金の合計は<span id="fund_sum">0</span>円になります。</div>
+            </div>
+            <div class="text-2">
+              <div class="text-3 single-linebody-base">
+                支払利息は<span id="interest_sum">0</span>円／月になります。<br />下の「創業当初の支払利息」に入力しました。
+              </div>
+            </div>
+          </div>
+          <div class="text-subheading-1"><div class="text-subheading subheading">事業の見通し（月平均）</div></div>
+          <div class="text"><div class="text-strong body-strong">創業当初</div></div>
+          <div class="frame-5">
+            <article class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">売上高　①</div>
+                <input type="number" name="revenue_initial" id="revenue_initial" class="input input-2" oninput="calculateInitial()" value="{{data.revenue_initial}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </article>
+            <article class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">売上原価　②</div>
+                <input type="number" name="cost_initial" id="cost_initial" class="input input-2" oninput="calculateInitial()" value="{{data.cost_initial}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </article>
+            <article class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">経費：人件費</div>
+                <input type="number" name="labor_initial" id="labor_initial" class="input input-2" oninput="calculateInitial()" value="{{data.labor_initial}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </article>
+            <article class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">経費：家賃</div>
+                <input type="number" name="rent_initial" id="rent_initial" class="input input-2" oninput="calculateInitial()" value="{{data.rent_initial}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </article>
+            <article class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">経費：支払利息</div>
+                <input type="number" name="interest_initial" id="interest_initial" class="input input-2" oninput="calculateInitial()" value="{{data.interest_initial}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </article>
+            <article class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">経費：その他</div>
+                <input type="number" name="others_initial" id="others_initial" class="input input-2" oninput="calculateInitial()" value="{{data.others_initial}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </article>
+            <article class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">経費の合計　③（自動計算）</div>
+                <input type="number" name="expense_initial" id="expense_initial" class="input input-2" readonly value="{{data.expense_initial}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </article>
+            <article class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">利益　①ー②ー③（自動計算）</div>
+                <input type="number" name="profit_initial" id="profit_initial" class="input input-2" readonly value="{{data.profit_initial}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </article>
+            <div class="ai_suggestion">
+              <div class="text-5">
+                <div class="text-3 single-linebody-base">
+                  下の空欄に入力して「AIサポート生成」ボタンを押すと<br />これまでの入力内容を反映したあなた専用の文例が提示されます。
+                </div>
+              </div>
+              <div class="frame-7">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label">特記事項（あれば）</div>
+                  <div class="input input-2"><div class="value value-3">Value</div></div>
+                </div>
+                <div class="button"><div class="button-1 single-linebody-base">AIサポート生成</div></div>
+              </div>
+              <div class="x-field single-linebody-base">
+                <div class="label">AIによる文例</div>
+                <div class="textarea">
+                  <div class="value-2 value-3">Value</div>
+                  <img class="drag" src="./static/img/drag.svg" alt="Drag" />
+                </div>
+              </div>
+              <div class="button"><div class="button-1 single-linebody-base">下の本文に挿入</div></div>
+            </div>
+            <div class="x-field">
+              <div class="label">売上高、売上原価（仕入高）、経費を計算した根拠</div>
+              <div class="textarea">
+                <div class="value-2 value-3">Value</div>
+                <img class="drag" src="./static/img/drag.svg" alt="Drag" />
+              </div>
+            </div>
+          </div>
+          
+          <div class="text"><div class="text-strong body-strong">1年後又は軌道に乗った後</div></div>
+          <div class="frame-6">
+            <div class="frame-2">
+              <article class="input-with-unit-small">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label">想定する年</div>
+                  <input type="number" name="year_stable" class="input-1 input-2" value="{{data.year_stable}}">
+                </div>
+                <div class="frame-1"><div class="text-1 single-linebody-base">年</div></div>
+              </article>
+              <article class="input-with-unit-small">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label">想定する月</div>
+                  <input type="number" name="month_stable" class="input-1 input-2" value="{{data.month_stable}}">
+                </div>
+                <div class="frame-1"><div class="text-1 single-linebody-base">月頃</div></div>
+              </article>
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">売上高　①</div>
+                <input type="number" name="revenue_stable" id="revenue_stable" class="input input-2" oninput="calculateStable()" value="{{data.revenue_stable}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">売上原価　②</div>
+                <input type="number" name="cost_stable" id="cost_stable" class="input input-2" oninput="calculateStable()" value="{{data.cost_stable}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">経費：人件費</div>
+                <input type="number" name="labor_stable" id="labor_stable" class="input input-2" oninput="calculateStable()" value="{{data.labor_stable}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">経費：家賃</div>
+                <input type="number" name="rent_stable" id="rent_stable" class="input input-2" oninput="calculateStable()" value="{{data.rent_stable}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">経費：支払利息</div>
+                <input type="number" name="interest_stable" id="interest_stable" class="input input-2" oninput="calculateStable()" value="{{data.interest_stable}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">経費：その他</div>
+                <input type="number" name="others_stable" id="others_stable" class="input input-2" oninput="calculateStable()" value="{{data.others_stable}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">経費の合計　③（自動計算）</div>
+                <input type="number" name="expense_stable" id="expense_stable" class="input input-2" readonly value="{{data.expense_stable}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">利益　①ー②ー③（自動計算）</div>
+                <input type="number" name="profit_stable" id="profit_stable" class="input input-2" readonly value="{{data.profit_stable}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </div>
+          </div>
+          <div class="ai_suggestion">
+            <div class="text-5">
+              <div class="text-3 single-linebody-base">
+                下の空欄に入力して「AIサポート生成」ボタンを押すと<br />これまでの入力内容を反映したあなた専用の文例が提示されます。
+              </div>
+            </div>
+            <div class="frame-7">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">自身の強み（あれば）</div>
+                <div class="input input-2"><div class="value value-3">Value</div></div>
+              </div>
+              <div class="button"><div class="button-1 single-linebody-base">AIサポート生成</div></div>
+            </div>
+            <div class="x-field single-linebody-base">
+              <div class="label">AIによる文例</div>
+              <div class="textarea">
+                <div class="value-2 value-3">Value</div>
+                <img class="drag" src="./static/img/drag.svg" alt="Drag" />
+              </div>
+            </div>
+            <div class="button"><div class="button-1 single-linebody-base">下の本文に挿入</div></div>
+          </div>
+          <div class="x-field">
+            <div class="label">売上高、売上原価（仕入高）、経費を計算した根拠</div>
+            <div class="textarea">
+              <div class="value-2 value-3">Value</div>
+              <img class="drag" src="./static/img/drag.svg" alt="Drag" />
+            </div>
+          </div>
+          <div class="text-subheading-1"><div class="text-subheading subheading">必要な資金</div></div>
+          <div class="text"><div class="text-strong body-strong">運転資金（商品仕入れ、経費支払資金など）</div></div>
+          <div class="frame-8" id="workingcapital_1" style="display:block;">
+            <div class="x-field single-linebody-base">
+              <div class="label">項目１</div>
+              <input type="text" name="workingcapital_1" class="input input-2" value="{{data.workingcapital_1}}">
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">金額</div>
+                <input type="number" name="workingcapital_1_amount" id="workingcapital_1_amount" class="input input-2" oninput="calculateSum()"  value="{{data.workingcapital_1_amount}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </div>
+          </div>
+          <div class="frame-9" id="workingcapital_2" {% if data.workingcapital_2 %} style="display:block;" {% else %} style="display:none;" {% endif %}>
+            <div class="x-field single-linebody-base">
+              <div class="label">項目２</div>
+              <input type="text" name="workingcapital_2" class="input input-2" value="{{data.workingcapital_2}}">
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">金額</div>
+                <input type="number" name="workingcapital_2_amount" id="workingcapital_2_amount" class="input input-2" oninput="calculateSum()" value="{{data.workingcapital_2_amount}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </div>
+          </div>
+          <div class="frame-10" id="workingcapital_2" {% if data.workingcapital_3 %} style="display:block;" {% else %} style="display:none;" {% endif %}>
+            <div class="x-field single-linebody-base">
+              <div class="label">項目３</div>
+              <input type="text" name="workingcapital_3" class="input input-2" value="{{data.workingcapital_3}}">
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">金額</div>
+                <input type="number" name="workingcapital_3_amount" id="workingcapital_3_amount" class="input input-2" oninput="calculateSum()" value="{{data.workingcapital_3_amount}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </div>
+          </div>
+          <div class="frame-11" id="workingcapital_2" {% if data.workingcapital_4 %} style="display:block;" {% else %} style="display:none;" {% endif %}>
+            <div class="x-field single-linebody-base">
+              <div class="label">項目４</div>
+              <input type="text" name="workingcapital_4" class="input input-2" value="{{data.workingcapital_4}}">
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">金額</div>
+                <input type="number" name="workingcapital_4_amount" id="workingcapital_4_amount" class="input input-2" oninput="calculateSum()" value="{{data.workingcapital_4_amount}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </div>
+          </div>
+          <div class="frame-12" id="workingcapital_2" {% if data.workingcapital_5 %} style="display:block;" {% else %} style="display:none;" {% endif %}>
+            <div class="x-field single-linebody-base">
+              <div class="label">項目５</div>
+              <input type="text" name="workingcapital_5" class="input input-2" value="{{data.workingcapital_5}}">
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">金額</div>
+                <input type="number" name="workingcapital_5_amount" id="workingcapital_5_amount" class="input input-2" oninput="calculateSum()" value="{{data.workingcapital_5_amount}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </div>
+          </div>
+          <div class="text-2"><div class="text-4 single-linebody-base">運転資金の合計は<span name="workingcapital_sum" id="workingcapital_sum">0</span>円になります</div></div>
+          <div class="frame">
+            <button type="button" id="add_workingcapital" class="button button-1 single-linebody-base">入力欄を追加</button>
+            <div class="text"><div class="text-small body-small">入力欄は最大5件まで追加できます。</div></div>
+          </div>
+          <div class="text"><div class="text-strong body-strong">設備資金（店舗、工場、機械、車両など）</div></div>
+          <div class="frame-13" id="equipment_1" style="display:block;">
+            <div class="x-field">
+              <div class="label">項目１</div>
+              <input type="text" name="equipment_1" class="input input-2" value="{{data.equipment_1}}">
+            </div>
+            <div class="x-field">
+              <div class="label">見積先</div>
+              <input type="text" name="equipment_1_estimate" class="input input-2" value="{{data.equipment_1_estimate}}">
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">金額</div>
+                <input type="number" name="equipment_1_amount" id="equipment_1_amount" class="input input-2" oninput="calculateSum()" value="{{data.equipment_1_amount}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </div>
+          </div>
+          <div class="frame-14" id="equipment_2" {% if data.equipment_2 %} style="display:block;" {% else %} style="display:none;" {% endif %}>
+            <div class="x-field">
+              <div class="label">項目２</div>
+              <input type="text" name="equipment_2" class="input input-2" value="{{data.equipment_2}}">
+            </div>
+            <div class="x-field">
+              <div class="label">見積先</div>
+              <input type="text" name="equipment_2_estimate" class="input input-2" value="{{data.equipment_2_estimate}}">
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">金額</div>
+                <input type="number" name="equipment_2_amount" id="equipment_2_amount" class="input input-2" oninput="calculateSum()"  value="{{data.equipment_2_amount}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </div>
+          </div>
+          <div class="frame-15" id="equipment_3" {% if data.equipment_3 %} style="display:block;" {% else %} style="display:none;" {% endif %}>
+            <div class="x-field">
+              <div class="label">項目３</div>
+              <input type="text" name="equipment_3" class="input input-2" value="{{data.equipment_3}}">
+            </div>
+            <div class="x-field">
+              <div class="label">見積先</div>
+              <input type="text" name="equipment_3_estimate" class="input input-2" value="{{data.equipment_3_estimate}}">
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">金額</div>
+                <input type="number" name="equipment_3_amount" id="equipment_3_amount" class="input input-2" oninput="calculateSum()" value="{{data.equipment_3_amount}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </div>
+          </div>
+          <div class="frame-16" id="equipment_4" {% if data.equipment_4 %} style="display:block;" {% else %} style="display:none;" {% endif %}>
+            <div class="x-field">
+              <div class="label">項目４</div>
+              <input type="text" name="equipment_4" class="input input-2" value="{{data.equipment_4}}">
+            </div>
+            <div class="x-field">
+              <div class="label">見積先</div>
+              <input type="text" name="equipment_4_estimate" class="input input-2" value="{{data.equipment_4_estimate}}">
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">金額</div>
+                <input type="number" name="equipment_4_amount" id="equipment_4_amount" class="input input-2" oninput="calculateSum()" value="{{data.equipment_4_amount}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </div>
+          </div>
+          <div class="frame-17" id="equipment_5" {% if data.equipment_5 %} style="display:block;" {% else %} style="display:none;" {% endif %}>
+            <div class="x-field">
+              <div class="label">項目５</div>
+              <input type="text" name="equipment_5" class="input input-2" value="{{data.equipment_5}}">
+            </div>
+            <div class="x-field">
+              <div class="label">見積先</div>
+              <input type="text" name="equipment_5_estimate" class="input input-2" value="{{data.equipment_5_estimate}}">
+            </div>
+            <div class="input-with-unit">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label">金額</div>
+                <input type="number" name="equipment_5_amount" id="equipment_5_amount" class="input input-2" oninput="calculateSum()" value="{{data.equipment_5_amount}}">
+              </div>
+              <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+            </div>
+          </div>
+          <div class="text-2"><div class="text-4 single-linebody-base">設備資金の合計は<span name="equipment_sum" id="equipment_sum">0</span>円になります</div></div>
+          <div class="frame">
+            <button type="button" id="add_equipment" class="button button-1 single-linebody-base">入力欄を追加</button>
+            <div class="text"><div class="text-small body-small">入力欄は最大5件まで追加できます。</div></div>
+          </div>
+          <div class="text-subheading-1"><div class="text-subheading subheading">最終チェック</div></div>
+          <div class="frame">
+            <article class="text-2">
+              <div class="text-4 single-linebody-base">
+                調達資金の合計と、運転資金と設備資金の合計は一致している必要があります。
+              </div>
+            </article>
+            <article class="text-2"><div class="text-4 single-linebody-base">調達資金：<span name="check_fund" id="check_fund">0</span>円</div></article>
+            <article class="text-2"><div class="text-4 single-linebody-base">運転資金：<span name="check_working" id="check_working">0</span>円</div></article>
+            <article class="text-2"><div class="text-4 single-linebody-base">設備資金：<span name="check_equipment" id="check_equipment">0</span>円</div></article>
+            <article class="text-2" style="display:block;" id="check_ok">
+              <div class="text-4 single-linebody-base">一致しているので、問題ありません。</div>
+            </article>
+            <article class="text-2" style="display:none;" id="check_more">
+              <div class="text-3 single-linebody-base">
+                調達資金が多いようです。<br />調達資金を減らすか、設備資金・運転資金を増やすことを検討してください。
+              </div>
+            </article>
+            <article class="text-2" style="display:none;" id="check_less">
+              <div class="text-3 single-linebody-base">
+                調達資金が少ないようです。<br />調達資金を増やすか、設備資金・運転資金を減らすことを検討してください。
+              </div>
+            </article>
+          </div>
+          <div class="frame-18">
+            <div class="button-group">
+              <button type="submit" name="action" value="save_temp" id="save_temp" class="button-2 button-1 single-linebody-base">一時保存</button>
+              <button type="submit" name="action" value="save_complete" id="save_complete" class="button-3 button-4 single-linebody-base">保存して完了</button>
+            </div>
+            <div class="text-5">
+              <div class="text-small-1 body-small">
+                一時保存：保存してメニューに戻ります。項目にチェックは付きません。<br />保存して完了：項目にチェックを付けます。内容は後から変更できます。
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <script>
+      let employeeSalarySum = 0; // グローバルスコープで定義
+      let officerSalarySum = 0; // グローバルスコープで定義
+      let workingCapitalSum = 0; // グローバルスコープで定義
+      let equipmentSum = 0; // グローバルスコープで定義
+
+      window.onload = function() {
+        calculateMonthlySales();
+        calculateMonthlySales2();
+        calculateOfficerSalary();
+        calculateEmployeeSalary();
+        calculateSum();
+        calculateInitial();
+        calculateStable();
+      }
+
+      document.getElementById('salestype').addEventListener('change', function() {
+        if(this.value=="1") {
+          document.getElementById('kouri').style.display = 'block';
+          document.getElementById('seizou').style.display = 'none';
+        } else if(this.value=="2") {
+          document.getElementById('kouri').style.display = 'none';
+          document.getElementById('seizou').style.display = 'block';
+        } else {
+          document.getElementById('kouri').style.display = 'none';
+          document.getElementById('seizou').style.display = 'none';
+        }
+      });
+
+      document.getElementById('add_equipment').addEventListener('click', function() {
+        if (document.getElementById('equipment_2').style.display == 'none') {
+          document.getElementById('equipment_2').style.display = 'block';
+        } else if (document.getElementById('equipment_3').style.display == 'none') {
+          document.getElementById('equipment_3').style.display = 'block';
+        } else if (document.getElementById('equipment_4').style.display == 'none') {
+          document.getElementById('equipment_4').style.display = 'block';
+        } else if (document.getElementById('equipment_5').style.display == 'none') {
+          document.getElementById('equipment_5').style.display = 'block';
+        }
+      });
+
+      document.getElementById('add_workingcapital').addEventListener('click', function() {
+        if (document.getElementById('workingcapital_2').style.display == 'none') {
+          document.getElementById('workingcapital_2').style.display = 'block';
+        } else if (document.getElementById('workingcapital_3').style.display == 'none') {
+          document.getElementById('workingcapital_3').style.display = 'block';
+        } else if (document.getElementById('workingcapital_4').style.display == 'none') {
+          document.getElementById('workingcapital_4').style.display = 'block';
+        } else if (document.getElementById('workingcapital_5').style.display == 'none') {
+          document.getElementById('workingcapital_5').style.display = 'block';
+        }
+      });
+
+      function calculateMonthlySales() {
+        const pricePerCustomer = parseFloat(document.querySelector('input[name="price_per_customer"]').value) || 0;
+        const numberOfWorkingDays = parseFloat(document.querySelector('input[name="number_of_working_days"]').value) || 0;
+        const numberOfCustomers = parseFloat(document.querySelector('input[name="number_of_customers"]').value) || 0;
+
+        const monthlySales = pricePerCustomer * numberOfWorkingDays * numberOfCustomers;
+        document.getElementById('monthly_sales').textContent = monthlySales;
+      }
+
+      function calculateMonthlySales2() {
+        const unitPrice = parseFloat(document.querySelector('input[name="unit_price"]').value) || 0;
+        const numberOfUnits = parseFloat(document.querySelector('input[name="number_of_units"]').value) || 0;
+
+        const monthlySales = unitPrice * numberOfUnits;
+        document.getElementById('monthly_sales2').textContent = monthlySales;
+      }
+
+      function calculateOfficerSalary() {
+        const officer = parseFloat(document.getElementById('officer').value) || 0;
+        const officerSalary = parseFloat(document.getElementById('officer_salary').value) || 0;
+        console.log(officer, officerSalary);
+        officerSalarySum = officer * officerSalary;
+        document.getElementById('officer_salary_sum').textContent = officerSalarySum;
+        document.getElementById('salary_sum').textContent = officerSalarySum + employeeSalarySum;
+      }
+
+      function calculateInitial() {
+        const revenueInitial = parseFloat(document.getElementById('revenue_initial').value) || 0;
+        const costInitial = parseFloat(document.getElementById('cost_initial').value) || 0;
+        const laborInitial = parseFloat(document.getElementById('labor_initial').value) || 0;
+        const rentInitial = parseFloat(document.getElementById('rent_initial').value) || 0;
+        const interestInitial = parseFloat(document.getElementById('interest_initial').value) || 0;
+        const othersInitial = parseFloat(document.getElementById('others_initial').value) || 0;
+        
+        expenseInitial = laborInitial + rentInitial + interestInitial + othersInitial;
+        profitInitial = revenueInitial - costInitial - expenseInitial;
+        document.getElementById('expense_initial').value = expenseInitial;
+        document.getElementById('profit_initial').value = profitInitial;
+      }
+
+      function calculateStable() {
+        const revenueStable = parseFloat(document.getElementById('revenue_stable').value) || 0;
+        const costStable = parseFloat(document.getElementById('cost_stable').value) || 0;
+        const laborStable = parseFloat(document.getElementById('labor_stable').value) || 0;
+        const rentStable = parseFloat(document.getElementById('rent_stable').value) || 0;
+        const interestStable = parseFloat(document.getElementById('interest_stable').value) || 0;
+        const othersStable = parseFloat(document.getElementById('others_stable').value) || 0;
+        
+        expenseStable = laborStable + rentStable + interestStable + othersStable;
+        profitStable = revenueStable - costStable - expenseStable;
+        document.getElementById('expense_stable').value = expenseStable;
+        document.getElementById('profit_stable').value = profitStable;
+      }
+
+      function calculateEmployeeSalary() {
+        const employee = parseFloat(document.getElementById('employee').value) || 0;
+        const employeeSalary = parseFloat(document.getElementById('employee_salary').value) || 0;
+        const familyMember = parseFloat(document.getElementById('family_member').value) || 0;
+        const familyMemberSalary = parseFloat(document.getElementById('family_member_salary').value) || 0;
+        const partTime = parseFloat(document.getElementById('part_time').value) || 0;
+        const partTimeSalary = parseFloat(document.getElementById('part_time_salary').value) || 0;
+
+        employeeSalarySum = (employee-familyMember-partTime) * employeeSalary + familyMember * familyMemberSalary + partTime * partTimeSalary;
+        document.getElementById('employee_salary_sum').textContent = employeeSalarySum;
+        document.getElementById('salary_sum').textContent = officerSalarySum + employeeSalarySum;
+      }
+
+      function calculateSum() {
+        const selfFund = parseFloat(document.getElementById('self_fund').value) || 0;
+        const familyFund = parseFloat(document.getElementById('family_fund').value) || 0;
+        const japanFund = parseFloat(document.getElementById('japan_fund').value) || 0;
+        const bankFund = parseFloat(document.getElementById('bank_fund').value) || 0;
+        const japanFundRate = parseFloat(document.getElementById('japan_fund_rate').value) || 0;
+        const bankFundRate = parseFloat(document.getElementById('bank_fund_rate').value) || 0;
+
+        const workingCapital1Amount = parseFloat(document.getElementById('workingcapital_1_amount').value) || 0;
+        const workingCapital2Amount = parseFloat(document.getElementById('workingcapital_2_amount').value) || 0;
+        const workingCapital3Amount = parseFloat(document.getElementById('workingcapital_3_amount').value) || 0;
+        const workingCapital4Amount = parseFloat(document.getElementById('workingcapital_4_amount').value) || 0;
+        const workingCapital5Amount = parseFloat(document.getElementById('workingcapital_5_amount').value) || 0;
+        const equipment1Amount = parseFloat(document.getElementById('equipment_1_amount').value) || 0;
+        const equipment2Amount = parseFloat(document.getElementById('equipment_2_amount').value) || 0;
+        const equipment3Amount = parseFloat(document.getElementById('equipment_3_amount').value) || 0;
+        const equipment4Amount = parseFloat(document.getElementById('equipment_4_amount').value) || 0;
+        const equipment5Amount = parseFloat(document.getElementById('equipment_5_amount').value) || 0;
+
+        const fundSum = selfFund + familyFund + japanFund + bankFund;
+        document.getElementById('fund_sum').textContent = fundSum;
+        const interestSum = (japanFund * japanFundRate / 100) + (bankFund * bankFundRate / 100);
+        document.getElementById('interest_sum').textContent = interestSum;
+        document.getElementById('check_fund').textContent = fundSum;
+
+        workingCapitalSum = workingCapital1Amount + workingCapital2Amount + workingCapital3Amount + workingCapital4Amount + workingCapital5Amount;
+        document.getElementById('workingcapital_sum').textContent = workingCapitalSum;
+        document.getElementById('check_working').textContent = workingCapitalSum;
+        equipmentSum = equipment1Amount + equipment2Amount + equipment3Amount + equipment4Amount + equipment5Amount;
+        document.getElementById('equipment_sum').textContent = equipmentSum;
+        document.getElementById('check_equipment').textContent = equipmentSum;
+
+        if (fundSum == workingCapitalSum + equipmentSum) {
+          document.getElementById('check_ok').style.display = 'block';
+          document.getElementById('check_more').style.display = 'none';
+          document.getElementById('check_less').style.display = 'none';
+        } else if (fundSum > workingCapitalSum + equipmentSum) {
+          document.getElementById('check_ok').style.display = 'none';
+          document.getElementById('check_more').style.display = 'block';
+          document.getElementById('check_less').style.display = 'none';
+        } else {
+          document.getElementById('check_ok').style.display = 'none';
+          document.getElementById('check_more').style.display = 'none';
+          document.getElementById('check_less').style.display = 'block';
+        }
+      }
+    </script>
+  </body>
+</html>

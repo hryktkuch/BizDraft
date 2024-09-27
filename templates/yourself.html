@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <!--<meta name=description content="This site was generated with Anima. www.animaapp.com"/>-->
+    <!-- <link rel="shortcut icon" type=image/png href="https://animaproject.s3.amazonaws.com/home/favicon.png" /> -->
+    <meta name="viewport" content="width=1366, maximum-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
+    <meta name="og:type" content="website" />
+    <meta name="twitter:card" content="photo" />
+    <link rel="stylesheet" type="text/css" href="./static/reset.css" />
+    <link rel="stylesheet" type="text/css" href="./static/yourself.css" />
+    <link rel="stylesheet" type="text/css" href="./static/styleguide.css" />
+    <link rel="stylesheet" type="text/css" href="./static/globals.css" />
+  </head>
+  <body style="margin: 0; background: #ffffff">
+    <input type="hidden" id="anPageName" name="page" value="yourself" />
+    <div class="yourself screen">
+      <header class="header">
+        <h1 class="title inter-bold-black-32px">BizDraft</h1>
+        <div class="frame-3">
+          <div class="button"><div class="button-1 single-linebody-base">専門家に相談する</div></div>
+          <img class="frame-item" src="./static/img/help-circle-4.svg" alt="Help circle" />
+          <img class="frame-item" src="./static/img/user-2.svg" alt="User" />
+        </div>
+      </header>
+      <form method="POST" action="/yourself_save" class="frame-4 single-linebody-base">
+        <div class="frame-4 single-linebody-base">
+          <div class="text-heading-1 text-heading-3"><div class="text-heading heading">あなた自身に関する項目</div></div>
+          <div class="text-subheading"><div class="text-subheading-1 subheading">主な経歴</div></div>
+          <div class="frame" id="experience_1" style="display:block;">
+            <div class="frame-1">
+              <article class="input-with-unit-small">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label label-2">内容の年</div>
+                  <input type="number" name="record_year_1" class="input input-2" value="{{ data.record_year_1 }}">
+                </div>
+                <div class="frame-2"><div class="text_label single-linebody-base">年</div></div>
+              </article>
+              <article class="input-with-unit-small">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label label-2">内容の月</div>
+                  <input type="number" name="record_month_1" class="input input-2" value="{{data.record_month_1}}">
+                </div>
+                <div class="frame-2"><div class="text_label single-linebody-base">月</div></div>
+              </article>
+            </div>
+            <div class="input-field-1">
+              <div class="label label-2">内容１</div>
+              <input type="text" name="record_detail_1" class="input-1 input-2" value="{{data.record_detail_1}}">
+            </div>
+          </div>
+          <div class="frame" id="experience_2" {% if data.record_year_2 != "" %} style="display:block;" {% else %} style="display:none;" {% endif %}>
+            <div class="frame-1">
+              <article class="input-with-unit-small">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label label-2">内容の年</div>
+                  <input type="number" name="record_year_2" class="input input-2" value="{{data.record_year_2}}">
+                </div>
+                <div class="frame-2"><div class="text_label single-linebody-base">年</div></div>
+              </article>
+              <article class="input-with-unit-small">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label label-2">内容の月</div>
+                  <input type="number" name="record_month_2" class="input input-2" value="{{data.record_month_2}}">
+                </div>
+                <div class="frame-2"><div class="text_label single-linebody-base">月</div></div>
+              </article>
+            </div>
+            <div class="input-field-1">
+              <div class="label label-2">内容２</div>
+              <input type="text" name="record_detail_2" class="input-1 input-2" value="{{data.record_detail_2}}">
+            </div>
+          </div>
+          <div class="frame" id="experience_3" {% if data.record_year_3 != "" %} style="display:block;" {% else %} style="display:none;" {% endif %}>
+            <div class="frame-1">
+              <article class="input-with-unit-small">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label label-2">内容の年</div>
+                  <input type="number" name="record_year_3" class="input input-2" value="{{data.record_year_3}}">
+                </div>
+                <div class="frame-2"><div class="text_label single-linebody-base">年</div></div>
+              </article>
+              <article class="input-with-unit-small">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label label-2">内容の月</div>
+                  <input type="number" name="record_month_3" class="input input-2" value="{{data.record_month_3}}">
+                </div>
+                <div class="frame-2"><div class="text_label single-linebody-base">月</div></div>
+              </article>
+            </div>
+            <div class="input-field-1">
+              <div class="label label-2">内容３</div>
+              <input type="text" name="record_detail_3" class="input-1 input-2" value="{{data.record_detail_3}}">
+            </div>
+          </div>
+          <div class="frame" id="experience_4" {% if data.record_year_4 != "" %} style="display:block;" {% else %} style="display:none;" {% endif %}>
+            <div class="frame-1">
+              <article class="input-with-unit-small">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label label-2">内容の年</div>
+                  <input type="number" name="record_year_4" class="input input-2" value="{{data.record_year_4}}">
+                </div>
+                <div class="frame-2"><div class="text_label single-linebody-base">年</div></div>
+              </article>
+              <article class="input-with-unit-small">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label label-2">内容の月</div>
+                  <input type="number" name="record_month_4" class="input input-2" value="{{data.record_month_4}}">
+                </div>
+                <div class="frame-2"><div class="text_label single-linebody-base">月</div></div>
+              </article>
+            </div>
+            <div class="input-field-1">
+              <div class="label label-2">内容４</div>
+              <input type="text" name="record_detail_4" class="input-1 input-2" value="{{data.record_detail_4}}">
+            </div>
+          </div>
+          <div class="frame" id="experience_5" {% if data.record_year_5 != "" %} style="display:block;" {% else %} style="display:none;" {% endif %}>
+            <div class="frame-1">
+              <article class="input-with-unit-small">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label label-2">内容の年</div>
+                  <input type="number" name="record_year_5" class="input input-2" value="{{data.record_year_5}}">
+                </div>
+                <div class="frame-2"><div class="text_label single-linebody-base">年</div></div>
+              </article>
+              <article class="input-with-unit-small">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label label-2">内容の月</div>
+                  <input type="number" name="record_month_5" class="input input-2" value="{{data.record_month_5}}">
+                </div>
+                <div class="frame-2"><div class="text_label single-linebody-base">月</div></div>
+              </article>
+            </div>
+            <div class="input-field-1">
+              <div class="label label-2">内容５</div>
+              <input type="text" name="record_detail_5" class="input-1 input-2" value="{{data.record_detail_5}}">
+            </div>
+          </div>
+          <div class="frame-5">
+            <button type="button" id="add_experience" class="button button-1 single-linebody-base">入力欄を追加</button>
+            <div class="text-small">
+              <div class="text-small-1 text-small-3 body-small">入力欄は最大5個まで追加できます。</div>
+            </div>
+          </div>
+          <div class="text-subheading"><div class="text-subheading-1 subheading">過去の事業経験</div></div>
+          <div class="frame-6">
+            <div class="radio-field">
+              <div class="checkbox-and-label">
+                <input type="radio" name="status_experience" value="status_experience_0" id="status_experience_0" {% if data.status_experience == 'status_experience_0' %}checked{% endif %}>
+                <label for="status_experience_0" class="label-1 label-2 single-linebody-base">事業を経営していたことはない。</label>
+              </div>
+            </div>
+            <div class="radio-field">
+              <div class="checkbox-and-label">
+                <input type="radio" name="status_experience" value="status_experience_1" id="status_experience_1" {% if data.status_experience == 'status_experience_1' %}checked{% endif %}>
+                <label for="status_experience_1" class="label-1 label-2 single-linebody-base">
+                  事業を経営していたことがあり、現在もその事業を続けている。
+                </label>
+              </div>
+            </div>
+            <div class="input-field-1">
+              <div class="label label-2">事業内容</div>
+              <input type="text" name="experience_detail" id="experience_detail" class="input-1 input-2" value="{{data.experience_detail}}">
+            </div>
+            <div class="radio-field">
+              <div class="checkbox-and-label">
+                <input type="radio" name="status_experience" value="status_experience_2" id="status_experience_2" {% if data.status_experience == 'status_experience_2' %}checked{% endif %}>
+                <label for="status_experience_2" class="label-1 label-2 single-linebody-base">
+                  事業を経営していたことはあるが、現在はその事業をやめている。
+                </label>
+              </div>
+            </div>
+            <div class="input-field-1">
+              <div class="label label-2">やめた時期（年月）</div>
+              <input type="text" name="experience_when" id="experience_when" class="input-1 input-2" value="{{data.experience_when}}">
+            </div>
+          </div>
+          <div class="text-subheading"><div class="text-subheading-1 subheading">取得資格</div></div>
+          <div class="frame-7">
+            <div class="radio-field">
+              <div class="checkbox-and-label">
+                <input type="radio" name="status_license" value="status_license_0" id="status_license_0" {% if data.status_license == 'status_license_0' %}checked{% endif %}>
+                <label for="status_license_0" class="label-1 label-2 single-linebody-base">特になし</label>
+              </div>
+            </div>
+            <div class="radio-field">
+              <div class="checkbox-and-label">
+                <input type="radio" name="status_license" value="status_license_1" id="status_license_1" {% if data.status_license == 'status_license_1' %}checked{% endif %}>
+                <label for="status_license_0" class="label-1 label-2 single-linebody-base">あり</label>
+              </div>
+            </div>
+            <div class="input-field-1">
+              <div class="label label-2">資格名</div>
+              <input type="text" name="license_detail" id="license_detail" class="input-1 input-2" value="{{data.license_detail}}">
+            </div>
+            <div class="input-field-1">
+              <div class="label label-2">番号等</div>
+              <input type="text" name="license_number" id="license_number" class="input-1 input-2" value="{{data.license_number}}">
+            </div>
+          </div>
+          <div class="text-subheading"><div class="text-subheading-1 subheading">知的財産等</div></div>
+          <div class="frame-8">
+            <div class="radio-field">
+              <div class="checkbox-and-label">
+                <input type="radio" name="status_patent" value="status_patent_0" id="status_patent_0" {% if data.status_patent == 'status_patent_0' %}checked{% endif %}>
+                <label for="status_patent_0" class="label-1 label-2 single-linebody-base">特になし</>
+              </div>
+            </div>
+            <div class="radio-field">
+              <div class="checkbox-and-label">
+                <input type="radio" name="status_patent" value="status_patent_1" id="status_patent_1" {% if data.status_patent == 'status_patent_1' %}checked{% endif %}>
+                <label for="status_patent_1" class="label-1 label-2 single-linebody-base">あり</>
+              </div>
+            </div>
+            <div class="input-field-1 single-linebody-base">
+              <div class="label label-2">名称</div>
+              <input type="text" name="patent_detail" id="patent_detail" class="input-1 input-2" value="{{data.patent_detail}}">
+            </div>
+            <div class="radio-field">
+              <div class="checkbox-and-label">
+                <input type="radio" name="patent_progress" value="patent_progress_0" id="patent_progress_0" {% if data.patent_progress == 'patent_progress_0' %}checked{% endif %}>
+                <label for="patent_progress_0" class="label-1 label-2 single-linebody-base">申請中</>
+              </div>
+            </div>
+            <div class="radio-field">
+              <div class="checkbox-and-label">
+                <input type="radio" name="patent_progress" value="patent_progress_1" id="patent_progress_1" {% if data.patent_progress == 'patent_progress_1' %}checked{% endif %}>
+                <label for="patent_progress_1" class="label-1 label-2 single-linebody-base">登録済</>
+              </div>
+            </div>
+          </div>
+          <div class="text-heading-2 text-heading-3"><div class="text-heading heading">創業の動機</div></div>
+          <div class="ai_suggestion">
+            <div class="text">
+              <div class="text-1 single-linebody-base">
+                下の空欄に入力して「AIサポート生成」ボタンを押すと<br />これまでの入力内容を反映したあなた専用の文例が提示されます。
+              </div>
+            </div>
+            <div class="frame-9">
+              <div class="input-field input-2 single-linebody-base">
+                <div class="label label-2">創業の理由（あれば）</div>
+                <input type="text" name="motivation_sentence" id="motivation_sentence" class="input-1 input-2" value="{{data.motivation_sentence}}">
+              </div>
+              <button type="button" id="motivation_generate" class="button button-1 single-linebody-base">AIサポート生成</button>
+            </div>
+            <div class="textarea-field-7 single-linebody-base">
+              <div class="label label-2">AIによる文例</div>
+              <textarea name="motivation_ai" id="motivation_ai" class="textarea textarea-1" readonly>{{data.motivation_ai}}</textarea>
+            </div>
+            <button type="button" id="ai_insert" class="button button-1 single-linebody-base">下の本文に挿入</button>
+          </div>
+          <div class="textarea-field-7 single-linebody-base">
+            <div class="label label-2">本文</div>
+            <textarea name="motivation_detail" id="motivation_detail" class="textarea textarea-1">{{data.motivation_detail}}</textarea>
+          </div>
+          <div class="frame-10">
+            <div class="button-group">
+              <button type="submit" name="action" value="save_temp" id="save_temp" class="button-2 button-1 single-linebody-base">一時保存</button>
+              <button type="submit" name="action" value="save_complete" id="save_complete" class="button-3 button-4 single-linebody-base">保存して完了</button>
+            </div>
+            <div class="text">
+              <div class="text-small-3 body-small">
+                一時保存：保存してメニューに戻ります。項目にチェックは付きません。<br />保存して完了：項目にチェックを付けます。内容は後から変更できます。
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      document.getElementById('add_experience').addEventListener('click', function() {
+        if (document.getElementById('experience_2').style.display != 'block') {
+          document.getElementById('experience_2').style.display = 'block';
+        } else if (document.getElementById('experience_3').style.display != 'block') {
+          document.getElementById('experience_3').style.display = 'block';
+        } else if (document.getElementById('experience_4').style.display != 'block') {
+          document.getElementById('experience_4').style.display = 'block';
+        } else if (document.getElementById('experience_5').style.display != 'block') {
+          document.getElementById('experience_5').style.display = 'block';
+        }      
+      });
+
+      document.getElementById('status_experience_0').addEventListener('click', function() {
+        document.getElementById('experience_detail').disabled = true;
+        document.getElementById('experience_detail').value = '';
+        document.getElementById('experience_when').disabled = true;
+        document.getElementById('experience_when').value = '';
+      });
+      document.getElementById('status_experience_1').addEventListener('click', function() {
+        document.getElementById('experience_detail').disabled = false;
+        document.getElementById('experience_when').disabled = true;
+        document.getElementById('experience_when').value = '';
+      });
+      document.getElementById('status_experience_2').addEventListener('click', function() {
+        document.getElementById('experience_detail').disabled = true;
+        document.getElementById('experience_detail').value = '';
+        document.getElementById('experience_when').disabled = false;
+      });
+
+      document.getElementById('status_license_0').addEventListener('click', function() {
+        document.getElementById('license_detail').disabled = true;
+        document.getElementById('license_detail').value = '';
+        document.getElementById('license_number').disabled = true;
+        document.getElementById('license_number').value = '';
+      });
+      document.getElementById('status_license_1').addEventListener('click', function() {
+        document.getElementById('license_detail').disabled = false;
+        document.getElementById('license_number').disabled = false;
+      });
+
+      document.getElementById('status_patent_0').addEventListener('click', function() {
+        document.getElementById('patent_detail').disabled = true;
+        document.getElementById('patent_detail').value = '';
+        document.getElementById('patent_progress_0').disabled = true;
+        document.getElementById('patent_progress_1').disabled = true;
+      });
+      document.getElementById('status_patent_1').addEventListener('click', function() {
+        document.getElementById('patent_detail').disabled = false;
+        document.getElementById('patent_progress_0').disabled = false;
+        document.getElementById('patent_progress_1').disabled = false;
+      });
+
+      document.getElementById('motivation_generate').addEventListener('click', function() {
+        const motivationSentence = document.getElementById('motivation_sentence').value;
+
+        fetch('/motivation_generate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ motivation_sentence: motivationSentence })
+        })
+        .then(response => response.json())
+        .then(data => {
+          const aiGeneratedTextDiv = document.getElementById('motivation_ai');
+          aiGeneratedTextDiv.value = data.ai_generated_text;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      });
+
+      document.getElementById('ai_insert').addEventListener('click', function() {
+        const motivationAi = document.getElementById('motivation_ai').value;
+        document.getElementById('motivation_detail').value += motivationAi;
+      });
+    </script>
+  </body>
+</html>

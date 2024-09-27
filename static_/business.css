@@ -1,0 +1,234 @@
+/* screen - business */
+
+.business {
+  align-items: flex-start;
+  background-color: var(--white);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.business .title {
+  letter-spacing: -0.96px;
+  line-height: 38.4px;
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.business .frame-22 {
+  display: inline-flex;
+  gap: 24px;
+  justify-content: flex-end;
+  margin-bottom: -1.00px;
+  margin-top: -1.00px;
+}
+
+.business .button {
+  align-items: center;
+  background-color: var(--mercury);
+  border: 1px solid;
+  border-color: var(--sonic-silver);
+  border-radius: 8px;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 8px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 12px;
+  position: relative;
+}
+
+.business .button-1 {
+  color: var(--eerie-black);
+  font-weight: 400;
+  line-height: 16px;
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.business .frame-24 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 64px 0px;
+  width: 100%;
+}
+
+.business .text-heading {
+  align-items: flex-start;
+  display: inline-flex;
+  height: 29px;
+  justify-content: center;
+  position: relative;
+}
+
+.business .text-heading-1 {
+  color: var(--eerie-black);
+  font-weight: 600;
+  line-height: 28.8px;
+  margin-top: -1.00px;
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.business .text-subheading {
+  color: var(--eerie-black);
+  font-weight: 400;
+  line-height: 24.0px;
+  margin-top: -1.00px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.business .label {
+  align-self: stretch;
+  color: var(--eerie-black);
+  font-weight: 400;
+  line-height: 22.4px;
+  margin-top: -1.00px;
+  position: relative;
+}
+
+.business .value {
+  line-height: 22.4px;
+}
+
+.business .input-field {
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.business .input {
+  align-items: center;
+  background-color: var(--white);
+  border: 1px solid;
+  border-color: var(--alto);
+  border-radius: 8px;
+  margin-bottom: -1.00px;
+  margin-left: -1.00px;
+  margin-right: -1.00px;
+  min-width: 240px;
+  overflow: hidden;
+  padding: 12px 16px;
+}
+
+.business .value-1 {
+  line-height: 16px;
+}
+
+.business .frame-26 {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.business .text-small {
+  color: var(--eerie-black);
+  font-weight: 400;
+  line-height: 19.6px;
+  margin-top: -1.00px;
+  position: relative;
+  text-align: center;
+  width: fit-content;
+}
+
+.business .frame-31 {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 460px;
+}
+
+.business .button-group {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 16px;
+  position: relative;
+  width: 240px;
+}
+
+.business .button-2 {
+  align-items: center;
+  background-color: var(--mercury);
+  border: 1px solid;
+  border-color: var(--sonic-silver);
+  border-radius: 8px;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  gap: 8px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 12px;
+  position: relative;
+}
+
+.business .button-3 {
+  align-items: center;
+  background-color: var(--heavy-metal);
+  border: 1px solid;
+  border-color: var(--heavy-metal);
+  border-radius: 8px;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 8px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 12px;
+  position: relative;
+}
+
+.business .text-small-1 {
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  position: relative;
+  width: 100%;
+}
+
+.business .annotation {
+  left: 979px;
+  top: 274px;
+}
+
+.business .text_label {
+  color: var(--black);
+  font-weight: 400;
+  line-height: 22.4px;
+  margin-top: -2.00px;
+  position: relative;
+  width: fit-content;
+}
+
+.business .frame {
+  align-items: center;
+  flex: 0 0 auto;
+  position: relative;
+}
+
+.business .input-1 {
+  align-self: stretch;
+  display: flex;
+  flex: 0 0 auto;
+  position: relative;
+  width: 100%;
+}
+
+.business .value-2 {
+  color: var(--eerie-black);
+  flex: 1;
+  font-weight: 400;
+  margin-top: -0.50px;
+  position: relative;
+}

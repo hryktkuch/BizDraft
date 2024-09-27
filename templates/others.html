@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <!--<meta name=description content="This site was generated with Anima. www.animaapp.com"/>-->
+    <!-- <link rel="shortcut icon" type=image/png href="https://animaproject.s3.amazonaws.com/home/favicon.png" /> -->
+    <meta name="viewport" content="width=1366, maximum-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
+    <meta name="og:type" content="website" />
+    <meta name="twitter:card" content="photo" />
+    <link rel="stylesheet" type="text/css" href="./static/reset.css" />
+    <link rel="stylesheet" type="text/css" href="./static/others.css" />
+    <link rel="stylesheet" type="text/css" href="./static/styleguide.css" />
+    <link rel="stylesheet" type="text/css" href="./static/globals.css" />
+  </head>
+  <body style="margin: 0; background: #ffffff">
+    <input type="hidden" id="anPageName" name="page" value="others" />
+    <div class="others screen">
+      <header class="header">
+        <h1 class="title inter-bold-black-32px">BizDraft</h1>
+        <div class="frame-22 frame-8">
+          <div class="button"><div class="button-1 single-linebody-base">専門家に相談する</div></div>
+          <img class="frame-22-item" src="./static/img/help-circle.svg" alt="Help circle" />
+          <img class="frame-22-item" src="./static/img/user.svg" alt="User" />
+        </div>
+      </header>
+      <form method="POST" action="/others_save" class="frame-2 frame-8">
+        <div class="frame-2 frame-8">
+          <div class="text-heading"><div class="text-heading-1 heading">その他の項目</div></div>
+          <div class="text">
+            <div class="text-subheading subheading">お借入の状況（法人の場合、代表者の方のお借入）</div>
+          </div>
+          <div class="frame frame-8">
+            <div class="input-field-4 single-linebody-base">
+              <div class="label label-2">お借入先名１</div>
+              <input type="text" name="debt_1_from" class="input input-2" value="{{data.debt_1_from}}">
+            </div>
+            <div class="frame-3 frame-8" id="debt_1" style="display:block;">
+              <div class="text"><div class="text-1 single-linebody-base">お使いみち</div></div>
+              <div class="frame-55 frame-8">
+                <article class="checkbox-field checkbox-1">
+                  <div class="checkbox-and-label">
+                    <input type="radio" name="debt_1_usage" value="debt_1_usage_1" id="debt_1_usage_1" {% if data.debt_1_usage ==  'debt_1_usage_1' %}checked{% endif %}>
+                    <label for="debt_1_usage_1" class="label-1 label-2 single-linebody-base">事業</label>
+                  </div>
+                </article>
+                <article class="checkbox-field checkbox-1">
+                  <div class="checkbox-and-label">
+                    <input type="radio" name="debt_1_usage" value="debt_1_usage_2" id="debt_1_usage_2" {% if data.debt_1_usage ==  'debt_1_usage_2' %}checked{% endif %}>
+                    <label for="debt_1_usage_2" class="label-1 label-2 single-linebody-base">教育</label>
+                  </div>
+                </article>
+                <article class="checkbox-field checkbox-1">
+                  <div class="checkbox-and-label">
+                    <input type="radio" name="debt_1_usage" value="debt_1_usage_3" id="debt_1_usage_3" {% if data.debt_1_usage ==  'debt_1_usage_3' %}checked{% endif %}>
+                    <label for="debt_1_usage_3" class="label-1 label-2 single-linebody-base">住宅</label>
+                  </div>
+                </article>
+                <article class="checkbox-field checkbox-1">
+                  <div class="checkbox-and-label">
+                    <input type="radio" name="debt_1_usage" value="debt_1_usage_4" id="debt_1_usage_4" {% if data.debt_1_usage ==  'debt_1_usage_4' %}checked{% endif %}>
+                    <label for="debt_1_usage_4" class="label-1 label-2 single-linebody-base">カード</label>
+                  </div>
+                </article>
+                <article class="checkbox-field checkbox-1">
+                  <div class="checkbox-and-label">
+                    <input type="radio" name="debt_1_usage" value="debt_1_usage_5" id="debt_1_usage_5" {% if data.debt_1_usage ==  'debt_1_usage_5' %}checked{% endif %}>
+                    <label for="debt_1_usage_5" class="label-1 label-2 single-linebody-base">車</label>
+                  </div>
+                </article>
+                <article class="checkbox-field checkbox-1">
+                  <div class="checkbox-and-label">
+                    <input type="radio" name="debt_1_usage" value="debt_1_usage_6" id="debt_1_usage_6" {% if data.debt_1_usage ==  'debt_1_usage_6' %}checked{% endif %}>
+                    <label for="debt_1_usage_6" class="label-1 label-2 single-linebody-base">その他</label>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="frame-1 frame-8">
+              <article class="input-with-unit-small">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label label-2">お借入残高</div>
+                  <input type="text" name="debt_1_amount" class="input-1 input-2" value="{{data.debt_1_amount}}">
+                </div>
+                <div class="frame-35 frame-8"><div class="text-2 single-linebody-base">円</div></div>
+              </article>
+              <article class="input-with-unit-small">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label label-2">年間返済額</div>
+                  <input type="text" name="debt_1_annual" class="input-1 input-2" value="{{data.debt_1_annual}}">
+                </div>
+                <div class="frame-35 frame-8"><div class="text-2 single-linebody-base">円</div></div>
+              </article>
+            </div>
+          </div>
+          <div class="frame frame-8" id="debt_2" style="display:none;">
+            <div class="input-field-4 single-linebody-base">
+              <div class="label label-2">お借入先名２</div>
+              <input type="text" name="debt_2_from" class="input input-2" value="{{data.debt_2_from}}">
+            </div>
+            <div class="frame-4 frame-8">
+              <div class="text"><div class="text-1 single-linebody-base">お使いみち</div></div>
+              <div class="frame-55 frame-8">
+                <article class="checkbox-field checkbox-1">
+                  <div class="checkbox-and-label">
+                    <input type="radio" name="debt_2_usage" value="debt_2_usage_1" {% if data.debt_2_usage ==  'debt_2_usage_1' %}checked{% endif %}>
+                    <div class="label-1 label-2 single-linebody-base">事業</div>
+                  </div>
+                </article>
+                <article class="checkbox-field checkbox-1">
+                  <div class="checkbox-and-label">
+                    <input type="radio" name="debt_2_usage" value="debt_2_usage_2" {% if data.debt_2_usage ==  'debt_2_usage_2' %}checked{% endif %}>
+                    <div class="label-1 label-2 single-linebody-base">教育</div>
+                  </div>
+                </article>
+                <article class="checkbox-field checkbox-1">
+                  <div class="checkbox-and-label">
+                    <input type="radio" name="debt_2_usage" value="debt_2_usage_3" {% if data.debt_2_usage ==  'debt_2_usage_3' %}checked{% endif %}>
+                    <div class="label-1 label-2 single-linebody-base">住宅</div>
+                  </div>
+                </article>
+                <article class="checkbox-field checkbox-1">
+                  <div class="checkbox-and-label">
+                    <input type="radio" name="debt_2_usage" value="debt_2_usage_4" {% if data.debt_2_usage ==  'debt_2_usage_4' %}checked{% endif %}>
+                    <div class="label-1 label-2 single-linebody-base">カード</div>
+                  </div>
+                </article>
+                <article class="checkbox-field checkbox-1">
+                  <div class="checkbox-and-label">
+                    <input type="radio" name="debt_2_usage" value="debt_2_usage_5" {% if data.debt_2_usage ==  'debt_2_usage_5' %}checked{% endif %}>
+                    <div class="label-1 label-2 single-linebody-base">車</div>
+                  </div>
+                </article>
+                <article class="checkbox-field checkbox-1">
+                  <div class="checkbox-and-label">
+                    <input type="radio" name="debt_2_usage" value="debt_2_usage_6" {% if data.debt_2_usage ==  'debt_2_usage_6' %}checked{% endif %}>
+                    <div class="label-1 label-2 single-linebody-base">その他</div>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="frame-1 frame-8">
+              <article class="input-with-unit-small">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label label-2">お借入残高</div>
+                  <input type="text" name="debt_2_amount" class="input-1 input-2" value="{{data.debt_2_amount}}">
+                </div>
+                <div class="frame-35 frame-8"><div class="text-2 single-linebody-base">円</div></div>
+              </article>
+              <article class="input-with-unit-small">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label label-2">年間返済額</div>
+                  <input type="text" name="debt_2_annual" class="input-1 input-2" value="{{data.debt_2_annual}}">
+                </div>
+                <div class="frame-35 frame-8"><div class="text-2 single-linebody-base">円</div></div>
+              </article>
+            </div>
+          </div>
+          <div class="frame frame-8" id="debt_3" style="display:none;">
+            <div class="input-field-4 single-linebody-base">
+              <div class="label label-2">お借入先名３</div>
+              <input type="text" name="debt_3_from" class="input input-2" value="{{data.debt_3_from}}">
+            </div>
+            <div class="frame-5 frame-8">
+              <div class="text"><div class="text-1 single-linebody-base">お使いみち</div></div>
+              <div class="frame-55 frame-8">
+                <article class="checkbox-field checkbox-1">
+                  <div class="checkbox-and-label">
+                    <input type="radio" name="debt_3_usage" value="debt_3_usage_1" {% if data.debt_3_usage ==  'debt_3_usage_1' %}checked{% endif %}>
+                    <div class="label-1 label-2 single-linebody-base">事業</div>
+                  </div>
+                </article>
+                <article class="checkbox-field checkbox-1">
+                  <div class="checkbox-and-label">
+                    <input type="radio" name="debt_3_usage" value="debt_3_usage_2" {% if data.debt_3_usage ==  'debt_3_usage_2' %}checked{% endif %}>
+                    <div class="label-1 label-2 single-linebody-base">教育</div>
+                  </div>
+                </article>
+                <article class="checkbox-field checkbox-1">
+                  <div class="checkbox-and-label">
+                    <input type="radio" name="debt_3_usage" value="debt_3_usage_3" {% if data.debt_3_usage ==  'debt_3_usage_3' %}checked{% endif %}>
+                    <div class="label-1 label-2 single-linebody-base">住宅</div>
+                  </div>
+                </article>
+                <article class="checkbox-field checkbox-1">
+                  <div class="checkbox-and-label">
+                    <input type="radio" name="debt_3_usage" value="debt_3_usage_4" {% if data.debt_3_usage ==  'debt_3_usage_4' %}checked{% endif %}>
+                    <div class="label-1 label-2 single-linebody-base">カード</div>
+                  </div>
+                </article>
+                <article class="checkbox-field checkbox-1">
+                  <div class="checkbox-and-label">
+                    <input type="radio" name="debt_3_usage" value="debt_3_usage_5" {% if data.debt_3_usage ==  'debt_3_usage_5' %}checked{% endif %}>
+                    <div class="label-1 label-2 single-linebody-base">車</div>
+                  </div>
+                </article>
+                <article class="checkbox-field checkbox-1">
+                  <div class="checkbox-and-label">
+                    <input type="radio" name="debt_3_usage" value="debt_3_usage_6" {% if data.debt_3_usage ==  'debt_3_usage_6' %}checked{% endif %}>
+                    <div class="label-1 label-2 single-linebody-base">その他</div>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div class="frame-1 frame-8">
+              <article class="input-with-unit-small">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label label-2">お借入残高</div>
+                  <input type="text" name="debt_3_amount" class="input-1 input-2" value="{{data.debt_3_amount}}">
+                </div>
+                <div class="frame-35 frame-8"><div class="text-2 single-linebody-base">円</div></div>
+              </article>
+              <article class="input-with-unit-small">
+                <div class="input-field input-2 single-linebody-base">
+                  <div class="label label-2">年間返済額</div>
+                  <input type="text" name="debt_3_annual" class="input-1 input-2" value="{{data.debt_3_annual}}">
+                </div>
+                <div class="frame-35 frame-8"><div class="text-2 single-linebody-base">円</div></div>
+              </article>
+            </div>
+          </div>
+          <div class="frame-6 frame-8">
+            <button type="button" id="add_debt" class="button button-1 single-linebody-base">入力欄を追加</button>
+            <div class="text"><div class="text-small body-small">入力欄は最大3個まで追加できます。</div></div>
+          </div>
+          <div class="text"><div class="text-subheading subheading">自由記入欄</div></div>
+          <div class="textarea-field textarea-1 single-linebody-base">
+            <div class="label label-2">本文</div>
+            <textarea name="appeal" class="textarea textarea-1">{{data.appeal}}</textarea>
+          </div>
+          <div class="frame-7 frame-8">
+            <div class="button-group">
+              <button type="submit" name="action" value="save_temp" id="save_temp" class="button-2 button-1 single-linebody-base">一時保存</button>
+              <button type="submit" name="action" value="save_complete" id="save_complete" class="button-3 button-4 single-linebody-base">保存して完了</button>
+            </div>
+            <div class="text-small-1">
+              <div class="text-small-2 body-small">
+                一時保存：保存してメニューに戻ります。項目にチェックは付きません。<br />保存して完了：項目にチェックを付けます。内容は後から変更できます。
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      document.getElementById('add_debt').addEventListener('click', function() {
+        var debt_2 = document.getElementById('debt_2');
+        var debt_3 = document.getElementById('debt_3');
+        if (debt_2.style.display === 'none') {
+          debt_2.style.display = 'block';
+        } else if (debt_3.style.display === 'none') {
+          debt_3.style.display = 'block';
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1366, maximum-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
+    <meta name="og:type" content="website" />
+    <meta name="twitter:card" content="photo" />
+    <link rel="stylesheet" type="text/css" href="./static/reset.css" />
+    <link rel="stylesheet" type="text/css" href="./static/business.css" />
+    <link rel="stylesheet" type="text/css" href="./static/styleguide.css" />
+    <link rel="stylesheet" type="text/css" href="./static/globals.css" />
+  </head>
+  <body style="margin: 0; background: #ffffff">
+    <input type="hidden" id="anPageName" name="page" value="business" />
+    <div class="business screen">
+      <header class="header">
+        <h1 class="title inter-bold-black-32px">BizDraft</h1>
+        <div class="frame-22 frame">
+          <div class="button"><div class="button-1 single-linebody-base">専門家に相談する</div></div>
+          <img class="frame-22-item" src="./static/img/help-circle-4.svg" alt="Help circle" />
+          <img class="frame-22-item" src="./static/img/user-2.svg" alt="User" />
+        </div>
+      </header>
+      <form method="POST" style="width:100%;" action="/save_business">
+        <div class="frame-24 frame single-linebody-base">
+          <div class="text-heading"><div class="text-heading-1 heading">あなたの事業に関する項目</div></div>
+          <div class="text-s"><div class="text-subheading subheading">事業内容</div></div>
+          <div class="frame-24-item">
+            <div class="label">事業内容</div>
+            <textarea name="business_detail" class="textarea" cols="50" rows="10"></textarea>
+          </div>
+          <div class="text-s"><div class="text-subheading subheading">取扱商品・サービスの内容</div></div>
+          <div class="frame-24-item">
+            <article class="input-field input-1">
+              <article class="input-field input-1">
+                <div class="label">商品・サービスの内容</div>
+                <input type="text" name="product_detail_1" class="input input-1">
+              </article>
+              <article class="input-field input-1">
+                <div class="label">その売上シェア</div>
+                <input type="text" name="product_detail_1_share" class="input input-1"></a>
+              </article>
+            </article>
+            <article class="input-field input-1" style="display:none;" id="product_detail_2_hidden">
+              <article class="input-field input-1">
+                <div class="label">商品・サービスの内容</div>
+                <input type="text" name="product_detail_2" class="input input-1">
+              </article>
+              <article class="input-field input-1">
+                <div class="label">その売上シェア</div>
+                <input type="text" name="product_detail_2_share" class="input input-1"></>
+              </article>
+            </article>
+            <article class="input-field input-1" style="display:none;" id="product_detail_3_hidden">
+              <article class="input-field input-1">
+                <div class="label">商品・サービスの内容</div>
+                <input type="text" name="product_detail_3" class="input input-1">
+              </article>
+              <article class="input-field input-1">
+                <div class="label">その売上シェア</div>
+                <input type="text" name="product_detail_3_share" class="input input-1"></article>
+              </article>
+            </article>
+          </div>
+          <div class="frame-26 frame">
+            <button type="button" id="button_add" class="button button-1 single-linebody-base">入力欄を追加</button>
+            <div class="text-s">
+              <div class="text-small body-small">
+                入力欄は最大3個まで追加できます。<br />売上シェアの合計は100％になるようにしてください。
+              </div>
+            </div>
+          </div>
+          <div class="text-s"><div class="text-subheading subheading">セールスポイント</div></div>
+          
+          <div class="frame-59 frame">
+            <div class="text">
+              <div class="text-1 single-linebody-base">
+                下の空欄に入力して「AIで助言を生成」ボタンを押すと<br />文例が提示されます。
+              </div>
+            </div>
+            <div class="frame-58 frame">
+              <div class="input-field-1 single-linebody-base">
+                <div class="label">自身の強み（あれば）</div>
+                <div class="input input-1"><div class="value-1 value-2">Value</div></div>
+              </div>
+              <div class="button"><div class="button-1 single-linebody-base">AIで助言を生成</div></div>
+            </div>
+            <div class="textarea-field-5 single-linebody-base">
+              <div class="label">AIの文例</div>
+              <div class="textarea textarea-1">
+                <div class="value value-2">Value</div>
+                <img class="drag" src="img/drag.svg" alt="Drag" />
+              </div>
+            </div>
+            <div class="button"><div class="button-1 single-linebody-base">本文に挿入</div></div>
+          </div>
+          
+          <div class="frame-24-item">
+            <div class="label">本文</div>
+            <textarea name="sales_point" class="textarea" cols="50" rows="10"></textarea>
+          </div>
+          <div class="text-s"><div class="text-subheading subheading">販売ターゲット・販売戦略</div></div>
+          <div class="frame-24-item">
+            <div class="label">本文</div>
+            <textarea name="sales_target" class="textarea" cols="50" rows="10"></textarea>
+          </div>
+          <div class="text-s"><div class="text-subheading subheading">競合・市場など企業を取り巻く状況</div></div>
+          <div class="frame-24-item single-linebody-base">
+            <div class="label">本文</div>
+            <textarea name="sales_competitor" class="textarea" cols="50" rows="10"></textarea>
+          </div>
+          <div class="frame-31 frame">
+            <div class="button-group">
+              <button type="submit" class="button-2 button-1 single-linebody-base" name="action" value="save_temp">一時保存</button>
+              <button type="submit" class="button-3 button-4 single-linebody-base" name="action" value="save_complete">保存して完了</button>
+            </div>
+            <div class="text-small-1">
+              <div class="text-small body-small">
+                一時保存：保存してメニューに戻ります。項目にチェックは付きません。<br />保存して完了：項目にチェックを付けます。内容は後から変更できます。
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <script>
+      document.getElementById('button_add').addEventListener('click', function() {
+        if(document.getElementById('product_detail_2_hidden').style.display != 'block') {
+          document.getElementById('product_detail_2_hidden').style.display = 'block';
+        } else if (document.getElementById('product_detail_3_hidden').style.display != 'block') {
+            document.getElementById('product_detail_3_hidden').style.display = 'block';
+          }
+        }
+      );
+    </script>
+  </body>
+</html>

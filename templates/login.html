@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1366, maximum-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
+    <meta name="og:type" content="website" />
+    <meta name="twitter:card" content="photo" />
+    <link rel="stylesheet" type="text/css" href="./static/reset.css" />
+    <link rel="stylesheet" type="text/css" href="./static/login.css" />
+    <link rel="stylesheet" type="text/css" href="./static/styleguide.css" />
+    <link rel="stylesheet" type="text/css" href="./static/globals.css" />
+</head>
+<body style="margin: 0; background: #ffffff">
+    <input type="hidden" id="anPageName" name="page" value="login" />
+    <div class="login screen">
+      <div class="text-title-page"><h1 class="text-title-page-1 title-page">BizDraft</h1></div>
+        <form method="POST" action="/login" id="login-form">
+          <div class="form-log-in single-linebody-base">
+            <div class="input-field input-1">
+              <div class="label">メールアドレス</div>
+              <input type="email" name="email" id="email" placeholder="Email" class="input input-1" required>
+            </div>
+            <div class="input-field input-1">
+              <div class="label">パスワード</div>
+              <input type="password" name="password" id="password" placeholder="Password" class="input input-1" required>
+            </div>
+            <div class="button-group">
+              <button type="submit" class="button button-1 single-linebody-base">ログイン</button>
+            </div>
+            <div class="text-link-1 text-link-3">
+              <div class="text-link single-linebody-base">パスワードを忘れましたか？</div>
+            </div>
+          </div>
+        </form>      
+      <div class="text-link-2 text-link-3">
+        <a href="/signup">
+          <div class="text-link single-linebody-base">未登録の場合は登録してください</div>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
