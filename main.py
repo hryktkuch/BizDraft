@@ -1,44 +1,39 @@
-from flask import Flask, request, jsonify, render_template, redirect, url_for, json, session
+from flask import Flask, request, jsonify, render_template, redirect, url_for, session
 from google.cloud import firestore
 import os, requests
 import firebase_admin
-from firebase_admin import credentials, auth, firestore
+from firebase_admin import auth
 from dotenv import load_dotenv
 import pyrebase
 
+# 環境変数を読み込み
 load_dotenv()
 app = Flask(__name__)
 
-DIFY_API_URL=os.getenv('DIFY_API_URL')
-MOTIVATION_GENERATE_API_KEY=os.getenv('MOTIVATION_GENERATE_API_KEY')
-STRENGTH_GENERATE_API_KEY=os.getenv('STRENGTH_GENERATE_API_KEY')
-TARGET_GENERATE_API_KEY=os.getenv('TARGET_GENERATE_API_KEY')
-COMPETITOR_GENERATE_API_KEY=os.getenv('COMPETITOR_GENERATE_API_KEY')
-app.secret_key =os.getenv('SECRET_KEY')
-FIREBASE_API_KEY=os.getenv('FIREBASE_API_KEY')
+# APIキーやシークレットキーを環境変数から取得
+DIFY_API_URL = os.getenv('DIFY_API_URL')
+MOTIVATION_GENERATE_API_KEY = os.getenv('MOTIVATION_GENERATE_API_KEY')
+STRENGTH_GENERATE_API_KEY = os.getenv('STRENGTH_GENERATE_API_KEY')
+TARGET_GENERATE_API_KEY = os.getenv('TARGET_GENERATE_API_KEY')
+COMPETITOR_GENERATE_API_KEY = os.getenv('COMPETITOR_GENERATE_API_KEY')
+app.secret_key = os.getenv('SECRET_KEY')
+FIREBASE_API_KEY = os.getenv('FIREBASE_API_KEY')
 
-# Firebase Admin SDK の初期化（サービスアカウントの JSON ファイルを使用）
-# deploy時はコメントアウトして、下のコードを使う
-# firebase_admin.initialize_app()
-cred_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
-cred = credentials.Certificate(cred_path)
-firebase_admin.initialize_app(cred)
+# Firebase Admin SDK の初期化（App Engineでは認証情報の明示指定は不要）
+if not firebase_admin._apps:
+    firebase_admin.initialize_app()
 
 # Firestoreに接続
 def get_firestore_client():
-    if os.getenv('FLASK_ENV') == 'production':
-        return firestore.Client()  # GCP環境ではデフォルト認証情報を使用
+    if os.getenv('GAE_ENV', '').startswith('standard'):  # App Engineの標準環境を確認
+        return firestore.Client()  # App Engineではデフォルト認証情報を使用
     else:
-        return firestore.Client()
+        cred_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')  # ローカル用の認証ファイルパス
+        return firestore.Client.from_service_account_json(cred_path)  # ローカル開発環境用
 
-db = firestore.Client.from_service_account_json(cred_path)
+db = get_firestore_client()
 
-# Firebase Admin SDK の初期化を一度だけ行う
-if not firebase_admin._apps:
-    firebase_admin.initialize_app(cred, {
-        'databaseURL': "https://bizdraft.firebaseio.com"
-    })
-
+# Firebase SDKの初期化
 config = {
     'apiKey': FIREBASE_API_KEY,
     'authDomain': "bizdraft.firebaseapp.com",
@@ -133,6 +128,8 @@ def dashboard():
     user_id = session['user']['localId']
     doc_ref = db.collection(user_id).document('sougyou')
     doc = doc_ref.get()
+    doc2_ref = db.collection(user_id).document('sougyou').collection('setup').document('data')
+    doc2 = doc2_ref.get()
     if doc.exists:
         data = doc.to_dict()
         status_setup = data.get('status_setup', 0)
@@ -148,13 +145,22 @@ def dashboard():
         status_funds = 0
         status_partner = 0
         status_others = 0
+    if doc2.exists:
+        data2 = doc2.to_dict()
+        if data2.get('business_name') != '':
+            business_name = data2.get('business_name', '') + 'の'
+        else:
+            business_name = ''
+    else:
+        business_name = ''
     return render_template('dashboard.html', 
         status_setup=status_setup, 
         status_yourself=status_yourself, 
         status_business=status_business, 
         status_funds=status_funds, 
         status_partner=status_partner, 
-        status_others=status_others)
+        status_others=status_others,
+        business_name=business_name)
 
 @app.route('/setup', methods=['GET', 'POST'])
 def setup():
