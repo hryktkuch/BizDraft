@@ -7,3 +7,4 @@ firebase-admin==5.2.0
 python-dotenv==1.0.0
 pyrebase4
 reportlab
+PyPDF2

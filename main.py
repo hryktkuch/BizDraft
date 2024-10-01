@@ -5,9 +5,17 @@ import firebase_admin
 from firebase_admin import auth
 from dotenv import load_dotenv
 import pyrebase
+
 from io import BytesIO
-from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import A4, landscape, A3
+from reportlab.platypus import Paragraph, Frame
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.pdfbase import pdfmetrics
+from reportlab.lib.units import mm
+from reportlab.pdfbase.ttfonts import TTFont
+from PyPDF2 import PdfWriter, PdfReader
+import datetime
 
 # 環境変数を読み込み
 load_dotenv()
@@ -389,22 +397,229 @@ def reasoning_stable_generate():
     result = run_dify_workflow(REASONING_STABLE_API_KEY, workflow_inputs)
     return jsonify({'ai_generated_text': result['data']['outputs']['text']})
 
+def add_paragraph(x_position, y_position, frame_width, frame_height, long_text, c):
+    # スタイルを取得
+    styles = getSampleStyleSheet()
+    style_normal = styles["Normal"]
+    style_normal.fontName = 'IPAGothic'  # フォントを設定
+    style_normal.fontSize = 8  # フォントサイズを設定
+    style_normal.leading = 12.5  # 行間を設定
+
+    # Paragraphを作成
+    paragraph = Paragraph(long_text, style_normal)
+
+    # Frameを作成してParagraphを配置
+    frame = Frame(x_position, y_position, frame_width, frame_height, showBoundary=1)
+    while True:
+        story = [paragraph]
+        frame.addFromList(story, c)
+        if not story:
+            break
+        long_text = long_text[:-1]
+        paragraph = Paragraph(long_text, style_normal)
+    return
+
 @app.route('/download_pdf', methods=['GET'])
 def download_pdf():
-    # BytesIO オブジェクトを使ってメモリ内にPDFを生成
+    # 既存の背景PDFファイルを読み込む
+    background_pdf_path = "./static/background.pdf"  # 背景となるPDFのパスを指定
+    background_pdf = PdfReader(background_pdf_path)
+    background_page = background_pdf.pages[0]  # 背景として使用するページを指定
+
+    # メモリ上に新しいPDFを生成
     pdf_buffer = BytesIO()
+
+    # フォントを登録
+    pdfmetrics.registerFont(TTFont('IPAGothic', './static/ipaexg.ttf'))
+
+    # ReportLabのCanvasを作成
+    c = canvas.Canvas(pdf_buffer, pagesize=landscape(A3))
+
+    # 日付
+    c.drawString(150 * mm, 285 * mm, str(datetime.datetime.now().year-2018))
+    c.drawString(163 * mm, 285 * mm, str(datetime.datetime.now().month))
+    c.drawString(177 * mm, 285 * mm, str(datetime.datetime.now().day))
     
-    # ReportLabを使ってPDFのキャンバスを生成
-    c = canvas.Canvas(pdf_buffer, pagesize=A4)
-    c.drawString(100, 750, "Hello, this is a dynamically generated PDF!")
+    # firestore setup
+    record_ref = db.collection(session['user']['localId']).document('sougyou').collection('setup').document('data')
+    doc = record_ref.get()
+    data = doc.to_dict() if doc.exists else {}
+    c.setFont('IPAGothic', 12)
+    c.drawString(120 * mm, 275 * mm, data.get('familyname')+data.get('firstname'))
+    
+    # firestore yourself
+    record_ref = db.collection(session['user']['localId']).document('sougyou').collection('yourself').document('data')
+    doc = record_ref.get()
+    data = doc.to_dict() if doc.exists else {}
+    c.setFont('IPAGothic', 9)
+    if data.get('record_year_1') != '':
+        c.drawString(22 * mm, 236 * mm, data.get('record_year_1')+'年'+data.get('record_month_1')+'月')
+        c.drawString(50 * mm, 236 * mm, data.get('record_detail_1'))
+    if data.get('record_year_2') != '':
+        c.drawString(22 * mm, 231.5 * mm, data.get('record_year_2')+'年'+data.get('record_month_2')+'月')
+        c.drawString(50 * mm, 231.5 * mm, data.get('record_detail_2'))
+    if data.get('record_year_3') != '':
+        c.drawString(22 * mm, 227 * mm, data.get('record_year_3')+'年'+data.get('record_month_3')+'月')
+        c.drawString(50 * mm, 227 * mm, data.get('record_detail_3'))
+    if data.get('record_year_4') != '':
+        c.drawString(22 * mm, 222.5 * mm, data.get('record_year_4')+'年'+data.get('record_month_4')+'月')
+        c.drawString(50 * mm, 222.5 * mm, data.get('record_detail_4'))
+    if data.get('record_year_5') != '':
+        c.drawString(22 * mm, 218 * mm, data.get('record_year_5')+'年'+data.get('record_month_5')+'月')
+        c.drawString(50 * mm, 218 * mm, data.get('record_detail_5'))
+    c.setFont('IPAGothic', 12)
+    if data.get('status_experience') == 'status_experience_0':
+        c.drawString(48.5 * mm, 208.5 * mm, '■')
+    if data.get('status_experience') == 'status_experience_1':
+        c.drawString(48.5 * mm, 203.5 * mm, '■')
+        c.setFont('IPAGothic', 9)
+        c.drawString(167 * mm, 203.5 * mm, data.get('experience_detail'))
+    if data.get('status_experience') == 'status_experience_2':
+        c.drawString(48.5 * mm, 198.5 * mm, '■')
+        c.setFont('IPAGothic', 9)
+        c.drawString(48.5 * mm, 206 * mm, data.get('experience_when'))
+    c.setFont('IPAGothic', 12)
+    if data.get('status_license') == 'status_license_0':
+        c.drawString(48.5 * mm, 194.5 * mm, '■')
+    #if data.get('status_license') == 'status_license_1':
+        # c.drawString(48.5 * mm, 188.5 * mm, '■')
+    c.setFont('IPAGothic', 12)
+    if data.get('status_patent') == 'status_patent_0':
+        c.drawString(48.5 * mm, 190 * mm, '■')
+    #if data.get('status_patent') == 'status_patent_1':
+        # c.drawString(48.5 * mm, 183.5 * mm, '■')
+    # motivation paragraph    
+    # 絶対位置を指定してFrameを作成（x, y, 幅, 高さ）
+    frame_width = 177 * mm  # 横幅を指定
+    frame_height = 25 * mm  # 高さを指定
+    x_position = 20 * mm  # 左から1インチ
+    y_position = 243 * mm  # 下から9インチ（上に配置される）
+    long_text = data.get('motivation_detail', '（なし）')
+    add_paragraph(x_position, y_position, frame_width, frame_height, long_text, c)
+
+    # firestore business
+    record_ref = db.collection(session['user']['localId']).document('sougyou').collection('business').document('data')
+    doc = record_ref.get()
+    data = doc.to_dict() if doc.exists else {}
+    c.setFont('IPAGothic', 9)
+    
+    # firestore partner
+    record_ref = db.collection(session['user']['localId']).document('sougyou').collection('partner').document('data')
+    doc = record_ref.get()
+    data = doc.to_dict() if doc.exists else {}
+    c.setFont('IPAGothic', 9)
+
+    # firestore funds
+    record_ref = db.collection(session['user']['localId']).document('sougyou').collection('funds').document('data')
+    doc = record_ref.get()
+    data = doc.to_dict() if doc.exists else {}
+    c.setFont('IPAGothic', 9)
+
+    # firestore others
+    record_ref = db.collection(session['user']['localId']).document('sougyou').collection('others').document('data')
+    doc = record_ref.get()
+    data = doc.to_dict() if doc.exists else {}
+    c.setFont('IPAGothic', 9)
+    if data.get('debt_1_from') != '':
+        c.drawString(216 * mm, 236 * mm, data.get('debt_1_from'))
+        c.setFont('IPAGothic', 12)
+        match data.get('debt_1_usage'):
+            case 'debt_1_usage_1':
+                c.drawString(262 * mm, 236 * mm, '■')
+            case 'debt_1_usage_2':
+                c.drawString(276 * mm, 236 * mm, '■')
+            case 'debt_1_usage_3':
+                c.drawString(290 * mm, 236 * mm, '■')
+            case 'debt_1_usage_4':
+                c.drawString(299 * mm, 236 * mm, '■')
+            case 'debt_1_usage_5':
+                c.drawString(313 * mm, 236 * mm, '■')
+            case 'debt_1_usage_6':
+                c.drawString(326 * mm, 236 * mm, '■')
+        c.setFont('IPAGothic', 9)
+        debt_1_amount=int(float(data.get('debt_1_amount',0))/10000)
+        print(debt_1_amount)
+        debt_1_annual=int(float(data.get('debt_1_annual',0))/10000)
+        c.drawString(347 * mm, 236 * mm, str(debt_1_amount))
+        c.drawString(372 * mm, 236 * mm, str(debt_1_annual))
+    if data.get('debt_2_from') != '':
+        c.drawString(216 * mm, 232 * mm, data.get('debt_2_from'))
+        c.setFont('IPAGothic', 12)
+        match data.get('debt_2_usage'):
+            case 'debt_2_usage_1':
+                c.drawString(262 * mm, 232 * mm, '■')
+            case 'debt_2_usage_2':
+                c.drawString(276 * mm, 232 * mm, '■')
+            case 'debt_2_usage_3':
+                c.drawString(290 * mm, 232 * mm, '■')
+            case 'debt_2_usage_4':
+                c.drawString(299 * mm, 232 * mm, '■')
+            case 'debt_2_usage_5':
+                c.drawString(313 * mm, 232 * mm, '■')
+            case 'debt_2_usage_6':
+                c.drawString(326 * mm, 232 * mm, '■')
+        c.setFont('IPAGothic', 9)
+        debt_1_amount=int(float(data.get('debt_2_amount',0))/10000)
+        print(debt_1_amount)
+        debt_1_annual=int(float(data.get('debt_2_annual',0))/10000)
+        c.drawString(347 * mm, 232 * mm, str(debt_1_amount))
+        c.drawString(372 * mm, 232 * mm, str(debt_1_annual))
+    if data.get('debt_3_from') != '':
+        c.drawString(216 * mm, 227 * mm, data.get('debt_3_from'))
+        c.setFont('IPAGothic', 12)
+        match data.get('debt_3_usage'):
+            case 'debt_3_usage_1':
+                c.drawString(262 * mm, 227 * mm, '■')
+            case 'debt_3_usage_2':
+                c.drawString(276 * mm, 227 * mm, '■')
+            case 'debt_3_usage_3':
+                c.drawString(290 * mm, 227 * mm, '■')
+            case 'debt_3_usage_4':
+                c.drawString(299 * mm, 227 * mm, '■')
+            case 'debt_3_usage_5':
+                c.drawString(313 * mm, 227 * mm, '■')
+            case 'debt_3_usage_6':
+                c.drawString(326 * mm, 227 * mm, '■')
+        c.setFont('IPAGothic', 9)
+        debt_1_amount=int(float(data.get('debt_3_amount',0))/10000)
+        print(debt_1_amount)
+        debt_1_annual=int(float(data.get('debt_3_annual',0))/10000)
+        c.drawString(347 * mm, 227 * mm, str(debt_1_amount))
+        c.drawString(372 * mm, 227 * mm, str(debt_1_annual))
+    # appeal paragraph    
+    # 絶対位置を指定してFrameを作成（x, y, 幅, 高さ）
+    frame_width = 177 * mm  # 横幅を指定
+    frame_height = 20 * mm  # 高さを指定
+    x_position = 214 * mm  # 左から1インチ
+    y_position = 20 * mm  # 下から9インチ（上に配置される）
+    long_text = data.get('appeal', '（なし）')
+    add_paragraph(x_position, y_position, frame_width, frame_height, long_text, c)
+
+    # PDFを保存
     c.showPage()
     c.save()
 
-    # メモリのバッファを開始位置に戻す
+    # バッファを最初に戻す
     pdf_buffer.seek(0)
 
-    # PDFをダウンロードさせるために send_file を使用
-    return send_file(pdf_buffer, as_attachment=True, download_name='generated_pdf.pdf', mimetype='application/pdf')
+    # 新しいPDFを読み込む
+    new_pdf = PdfReader(pdf_buffer)
+    new_page = new_pdf.pages[0]
+
+    # PdfWriterを使って背景と新しいページを合成
+    output_pdf = PdfWriter()
+    background_page.merge_page(new_page)
+
+    # 合成したページを追加
+    output_pdf.add_page(background_page)
+
+    # 出力用のバッファを作成
+    output_pdf_buffer = BytesIO()
+    output_pdf.write(output_pdf_buffer)
+    output_pdf_buffer.seek(0)
+
+    # PDFをダウンロードとして返す
+    return send_file(output_pdf_buffer, as_attachment=False, download_name='final_output_with_position.pdf', mimetype='application/pdf')
 
 # アプリケーションのエントリーポイント
 if __name__ == '__main__':
