@@ -257,7 +257,7 @@
           </div>
           {% endif %}
         </div>
-        <div class="button-2"><div class="button-3 single-linebody-base">書類を確認</div></div>
+        <button type="button" id="download_pdf" class="button-2 button-3 single-linebody-base">書類を確認</button>
       </div>
     </div>
     <script>
@@ -278,6 +278,9 @@
       });
       document.getElementById('others').addEventListener('click', function() {
         window.location.href = '/others';
+      });
+      document.getElementById('download_pdf').addEventListener('click', function() {
+        window.location.href = '/download_pdf';
       });
     </script>
   </body>

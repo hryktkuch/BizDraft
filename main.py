@@ -1,10 +1,13 @@
-from flask import Flask, request, jsonify, render_template, redirect, url_for, session
+from flask import Flask, request, jsonify, render_template, redirect, url_for, session, send_file
 from google.cloud import firestore
 import os, requests
 import firebase_admin
 from firebase_admin import auth
 from dotenv import load_dotenv
 import pyrebase
+from io import BytesIO
+from reportlab.lib.pagesizes import A4
+from reportlab.pdfgen import canvas
 
 # 環境変数を読み込み
 load_dotenv()
@@ -18,6 +21,8 @@ TARGET_GENERATE_API_KEY = os.getenv('TARGET_GENERATE_API_KEY')
 COMPETITOR_GENERATE_API_KEY = os.getenv('COMPETITOR_GENERATE_API_KEY')
 app.secret_key = os.getenv('SECRET_KEY')
 FIREBASE_API_KEY = os.getenv('FIREBASE_API_KEY')
+REASONING_INITIAL_API_KEY = os.getenv('REASONING_INITIAL_API_KEY')
+REASONING_STABLE_API_KEY = os.getenv('REASONING_STABLE_API_KEY')
 
 # Firebase Admin SDK の初期化（App Engineでは認証情報の明示指定は不要）
 if not firebase_admin._apps:
@@ -316,6 +321,8 @@ def others_save():
 def motivation_generate():
     data = request.get_json()
     input_sentence = data.get('motivation_sentence')
+    if input_sentence == '':
+        input_sentence = '（なし）'
     workflow_inputs = {
         'motivation_sentence': input_sentence
     }
@@ -326,6 +333,8 @@ def motivation_generate():
 def strength_generate():
     data = request.get_json()
     input_sentence = data.get('strength_sentence')
+    if input_sentence == '':
+        input_sentence = '（なし）'
     workflow_inputs = {
         'strength_sentence': input_sentence
     }
@@ -336,6 +345,8 @@ def strength_generate():
 def target_generate():
     data = request.get_json()
     input_sentence = data.get('target_sentence')
+    if input_sentence == '':
+        input_sentence = '（なし）'
     workflow_inputs = {
         'target_sentence': input_sentence
     }
@@ -346,11 +357,54 @@ def target_generate():
 def competitor_generate():
     data = request.get_json()
     input_sentence = data.get('competitor_sentence')
+    if input_sentence == '':
+        input_sentence = '（なし）'
     workflow_inputs = {
         'competitor_sentence': input_sentence
     }
     result = run_dify_workflow(COMPETITOR_GENERATE_API_KEY, workflow_inputs)
     return jsonify({'ai_generated_text': result['data']['outputs']['text']})
+
+@app.route('/reasoning_initial_generate', methods=['POST'])
+def reasoning_initial_generate():
+    data = request.get_json()
+    input_sentence = data.get('reasoning_sentence_initial')
+    if input_sentence == '':
+        input_sentence = '（なし）'
+    workflow_inputs = {
+        'reasoning_sentence_initial': input_sentence
+    }
+    result = run_dify_workflow(REASONING_INITIAL_API_KEY, workflow_inputs)
+    return jsonify({'ai_generated_text': result['data']['outputs']['text']})
+
+@app.route('/reasoning_stable_generate', methods=['POST'])
+def reasoning_stable_generate():
+    data = request.get_json()
+    input_sentence = data.get('reasoning_sentence_stable')
+    if input_sentence == '':
+        input_sentence = '（なし）'
+    workflow_inputs = {
+        'reasoning_sentence_stable': input_sentence
+    }
+    result = run_dify_workflow(REASONING_STABLE_API_KEY, workflow_inputs)
+    return jsonify({'ai_generated_text': result['data']['outputs']['text']})
+
+@app.route('/download_pdf', methods=['GET'])
+def download_pdf():
+    # BytesIO オブジェクトを使ってメモリ内にPDFを生成
+    pdf_buffer = BytesIO()
+    
+    # ReportLabを使ってPDFのキャンバスを生成
+    c = canvas.Canvas(pdf_buffer, pagesize=A4)
+    c.drawString(100, 750, "Hello, this is a dynamically generated PDF!")
+    c.showPage()
+    c.save()
+
+    # メモリのバッファを開始位置に戻す
+    pdf_buffer.seek(0)
+
+    # PDFをダウンロードさせるために send_file を使用
+    return send_file(pdf_buffer, as_attachment=True, download_name='generated_pdf.pdf', mimetype='application/pdf')
 
 # アプリケーションのエントリーポイント
 if __name__ == '__main__':

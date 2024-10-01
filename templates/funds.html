@@ -61,7 +61,7 @@
               </div>
               <div class="text-2">
                 <div class="text-3 single-linebody-base">
-                  創業当初の売上高は<span id="monthly_sales">0</span>円／月になります。<br />下の「創業当初の売上高」に入力しました。
+                  創業当初の売上高は<span id="monthly_sales">0</span>円／月になります。<br />
                 </div>
               </div>
               <div class="x-field single-linebody-base">
@@ -105,7 +105,7 @@
               </div>
               <div class="text-2">
                 <div class="text-3 single-linebody-base">
-                  創業当初の売上高は<span id="monthly_sales2">0</span>円／月になります。<br />下の「創業当初の売上高」に入力しました。
+                  創業当初の売上高は<span id="monthly_sales2">0</span>円／月になります。<br />
                 </div>
               </div>
             </div>
@@ -178,7 +178,6 @@
               <div class="text-3 single-linebody-base">
                 従業員の人件費は<span id="employee_salary_sum" name="employee_salary_sum">0</span>円／月になります。<br />
                 役員報酬と合わせた人件費は<span id="salary_sum" name="salary_sum">0</span>円／月になります。<br />
-                下の「創業当初の人件費」に入力しました。
               </div>
             </div>
             <div class="frame-2">
@@ -257,7 +256,7 @@
             </div>
             <div class="text-2">
               <div class="text-3 single-linebody-base">
-                支払利息は<span id="interest_sum">0</span>円／月になります。<br />下の「創業当初の支払利息」に入力しました。
+                支払利息は<span id="interest_sum">0</span>円／月になります。<br />
               </div>
             </div>
           </div>
@@ -266,10 +265,11 @@
           <div class="frame-5">
             <article class="input-with-unit">
               <div class="input-field input-2 single-linebody-base">
-                <div class="label">売上高　①</div>
-                <input type="number" name="revenue_initial" id="revenue_initial" class="input input-2" oninput="calculateInitial()" value="{{data.revenue_initial}}">
+                <div class="label">売上高　①　（「創業当初の売上高」を参照）</div>
+                <input type="number" name="revenue_initial" id="revenue_initial" class="input input-2" oninput="calculateInitial()">
               </div>
               <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+              <button type="button" id="revenue_initial_transfer" class="button button-1 single-linebody-base">上の値を挿入</button>
             </article>
             <article class="input-with-unit">
               <div class="input-field input-2 single-linebody-base">
@@ -280,10 +280,11 @@
             </article>
             <article class="input-with-unit">
               <div class="input-field input-2 single-linebody-base">
-                <div class="label">経費：人件費</div>
+                <div class="label">経費：人件費　（「人件費」を参照）</div>
                 <input type="number" name="labor_initial" id="labor_initial" class="input input-2" oninput="calculateInitial()" value="{{data.labor_initial}}">
               </div>
               <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+              <button type="button" id="labor_initial_transfer" class="button button-1 single-linebody-base">上の値を挿入</button>
             </article>
             <article class="input-with-unit">
               <div class="input-field input-2 single-linebody-base">
@@ -294,10 +295,11 @@
             </article>
             <article class="input-with-unit">
               <div class="input-field input-2 single-linebody-base">
-                <div class="label">経費：支払利息</div>
+                <div class="label">経費：支払利息　（「支払利息」を参照）</div>
                 <input type="number" name="interest_initial" id="interest_initial" class="input input-2" oninput="calculateInitial()" value="{{data.interest_initial}}">
               </div>
               <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+              <button type="button" id="interest_initial_transfer" class="button button-1 single-linebody-base">上の値を挿入</button>
             </article>
             <article class="input-with-unit">
               <div class="input-field input-2 single-linebody-base">
@@ -329,25 +331,20 @@
               <div class="frame-7">
                 <div class="input-field input-2 single-linebody-base">
                   <div class="label">特記事項（あれば）</div>
-                  <div class="input input-2"><div class="value value-3">Value</div></div>
+                  <input type="text" name="reasoning_sentence_initial" id="reasoning_sentence_initial" class="input input-2">
                 </div>
-                <div class="button"><div class="button-1 single-linebody-base">AIサポート生成</div></div>
+                <button type="button" id="reasoning_initial_generate" class="button button-1 single-linebody-base">AIサポート生成</button>
               </div>
               <div class="x-field single-linebody-base">
                 <div class="label">AIによる文例</div>
-                <div class="textarea">
-                  <div class="value-2 value-3">Value</div>
-                  <img class="drag" src="./static/img/drag.svg" alt="Drag" />
-                </div>
+                <textarea class="textarea" id="reasoning_ai_initial">
+                </textarea>
               </div>
-              <div class="button"><div class="button-1 single-linebody-base">下の本文に挿入</div></div>
+              <button id="reasoning_transfer_initial" class="button button-1 single-linebody-base">下の本文に挿入</button>
             </div>
             <div class="x-field">
               <div class="label">売上高、売上原価（仕入高）、経費を計算した根拠</div>
-              <div class="textarea">
-                <div class="value-2 value-3">Value</div>
-                <img class="drag" src="./static/img/drag.svg" alt="Drag" />
-              </div>
+              <textarea class="textarea">{{data.reasoning_initial}}</textarea>
             </div>
           </div>
           
@@ -371,38 +368,41 @@
             </div>
             <div class="input-with-unit">
               <div class="input-field input-2 single-linebody-base">
-                <div class="label">売上高　①</div>
+                <div class="label">売上高　①　（創業当初の1.5倍が目安）</div>
                 <input type="number" name="revenue_stable" id="revenue_stable" class="input input-2" oninput="calculateStable()" value="{{data.revenue_stable}}">
               </div>
               <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
             </div>
             <div class="input-with-unit">
               <div class="input-field input-2 single-linebody-base">
-                <div class="label">売上原価　②</div>
+                <div class="label">売上原価　②　（売上の伸張に従って増加が目安）</div>
                 <input type="number" name="cost_stable" id="cost_stable" class="input input-2" oninput="calculateStable()" value="{{data.cost_stable}}">
               </div>
               <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
             </div>
             <div class="input-with-unit">
               <div class="input-field input-2 single-linebody-base">
-                <div class="label">経費：人件費</div>
+                <div class="label">経費：人件費　（創業当初と同じが目安）</div>
                 <input type="number" name="labor_stable" id="labor_stable" class="input input-2" oninput="calculateStable()" value="{{data.labor_stable}}">
               </div>
               <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+              <button type="button" id="labor_stable_transfer" class="button button-1 single-linebody-base">創業当初の値を挿入</button>
             </div>
             <div class="input-with-unit">
               <div class="input-field input-2 single-linebody-base">
-                <div class="label">経費：家賃</div>
+                <div class="label">経費：家賃　（創業当初と同じが目安）</div>
                 <input type="number" name="rent_stable" id="rent_stable" class="input input-2" oninput="calculateStable()" value="{{data.rent_stable}}">
               </div>
               <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+              <button type="button" id="rent_stable_transfer" class="button button-1 single-linebody-base">創業当初の値を挿入</button>
             </div>
             <div class="input-with-unit">
               <div class="input-field input-2 single-linebody-base">
-                <div class="label">経費：支払利息</div>
+                <div class="label">経費：支払利息　（創業当初と同じが目安）</div>
                 <input type="number" name="interest_stable" id="interest_stable" class="input input-2" oninput="calculateStable()" value="{{data.interest_stable}}">
               </div>
               <div class="frame-1"><div class="text-1 single-linebody-base">円</div></div>
+              <button type="button" id="interest_stable_transfer" class="button button-1 single-linebody-base">創業当初の値を挿入</button>
             </div>
             <div class="input-with-unit">
               <div class="input-field input-2 single-linebody-base">
@@ -435,25 +435,19 @@
             <div class="frame-7">
               <div class="input-field input-2 single-linebody-base">
                 <div class="label">自身の強み（あれば）</div>
-                <div class="input input-2"><div class="value value-3">Value</div></div>
+                <input type="text" name="reasoning_sentence_stable" id="reasoning_sentence_stable" class="input input-2">
               </div>
-              <div class="button"><div class="button-1 single-linebody-base">AIサポート生成</div></div>
+              <button type="button" id="reasoning_stable_generate" class="button button-1 single-linebody-base">AIサポート生成</button>
             </div>
             <div class="x-field single-linebody-base">
               <div class="label">AIによる文例</div>
-              <div class="textarea">
-                <div class="value-2 value-3">Value</div>
-                <img class="drag" src="./static/img/drag.svg" alt="Drag" />
-              </div>
+              <textarea class="textarea" id="reasoning_ai_stable" name="reasoning_ai_stable" readonly>{{data.reasoning_ai_stable}}</textarea>
             </div>
-            <div class="button"><div class="button-1 single-linebody-base">下の本文に挿入</div></div>
+            <button type="button" id="reasoning_transfer_stable" class="button button-1 single-linebody-base">下の本文に挿入</button>
           </div>
           <div class="x-field">
             <div class="label">売上高、売上原価（仕入高）、経費を計算した根拠</div>
-            <div class="textarea">
-              <div class="value-2 value-3">Value</div>
-              <img class="drag" src="./static/img/drag.svg" alt="Drag" />
-            </div>
+            <textarea class="textarea" id="reasoning_stable" name="reasoning_stable">{{data.reasoning_stable}}</textarea>
           </div>
           <div class="text-subheading-1"><div class="text-subheading subheading">必要な資金</div></div>
           <div class="text"><div class="text-strong body-strong">運転資金（商品仕入れ、経費支払資金など）</div></div>
@@ -774,6 +768,7 @@
         employeeSalarySum = (employee-familyMember-partTime) * employeeSalary + familyMember * familyMemberSalary + partTime * partTimeSalary;
         document.getElementById('employee_salary_sum').textContent = employeeSalarySum;
         document.getElementById('salary_sum').textContent = officerSalarySum + employeeSalarySum;
+        document.getElementById('labor_initial').value = employeeSalarySum+officerSalarySum;
       }
 
       function calculateSum() {
@@ -799,6 +794,7 @@
         document.getElementById('fund_sum').textContent = fundSum;
         const interestSum = (japanFund * japanFundRate / 100) + (bankFund * bankFundRate / 100);
         document.getElementById('interest_sum').textContent = interestSum;
+        document.getElementById('interest_initial').value = interestSum;
         document.getElementById('check_fund').textContent = fundSum;
 
         workingCapitalSum = workingCapital1Amount + workingCapital2Amount + workingCapital3Amount + workingCapital4Amount + workingCapital5Amount;
@@ -822,6 +818,95 @@
           document.getElementById('check_less').style.display = 'block';
         }
       }
+
+      document.getElementById('reasoning_initial_generate').addEventListener('click', function() {
+        const inputSentence = document.getElementById('reasoning_sentence_initial').value;
+
+        fetch('/reasoning_initial_generate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({reasoning_sentence_initial: inputSentence })
+        })
+        .then(response => response.json())
+        .then(data => {
+          const aiGeneratedTextDiv = document.getElementById('reasoning_ai_initial');
+          aiGeneratedTextDiv.value = data.ai_generated_text;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      });
+
+      document.getElementById('reasoning_transfer_initial').addEventListener('click', function() {
+        const aiGeneratedTextDiv = document.getElementById('reasoning_ai_initial');
+        const reasoningInitialDiv = document.getElementById('reasoning_initial');
+        reasoningInitialDiv.value = reasoningInitialDiv.value+aiGeneratedTextDiv.value;
+      });
+
+      document.getElementById('reasoning_stable_generate').addEventListener('click', function() {
+        const inputSentence = document.getElementById('reasoning_sentence_stable').value;
+
+        fetch('/reasoning_stable_generate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({reasoning_sentence_stable: inputSentence })
+        })
+        .then(response => response.json())
+        .then(data => {
+          const aiGeneratedTextDiv = document.getElementById('reasoning_ai_stable');
+          aiGeneratedTextDiv.value = data.ai_generated_text;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      });
+
+      document.getElementById('reasoning_transfer_stable').addEventListener('click', function() {
+        const aiGeneratedTextDiv = document.getElementById('reasoning_ai_stable');
+        const reasoningInitialDiv = document.getElementById('reasoning_stable');
+        reasoningInitialDiv.value = reasoningInitialDiv.value+aiGeneratedTextDiv.value;
+      });
+
+      document.getElementById('revenue_initial_transfer').addEventListener('click', function() {
+        if(document.getElementById('salestype').value=="1") {
+          const transfer_from = document.getElementById('monthly_sales');
+          const transfer_to = document.getElementById('revenue_initial');
+          transfer_to.value = transfer_from.textContent;
+        } else if(document.getElementById('salestype').value=="2") {
+          const transfer_from = document.getElementById('monthly_sales2');
+          const transfer_to = document.getElementById('revenue_initial');
+          transfer_to.value = transfer_from.textContent;
+        }
+      });
+      document.getElementById('labor_initial_transfer').addEventListener('click', function() {
+        const transfer_from = document.getElementById('salary_sum');
+        const transfer_to = document.getElementById('labor_initial');
+        transfer_to.value = transfer_from.textContent;
+      });
+      document.getElementById('interest_initial_transfer').addEventListener('click', function() {
+        const transfer_from = document.getElementById('interest_sum');
+        const transfer_to = document.getElementById('interest_initial');
+        transfer_to.value = transfer_from.textContent;
+      });
+      document.getElementById('labor_stable_transfer').addEventListener('click', function() {
+        const transfer_from = document.getElementById('labor_initial');
+        const transfer_to = document.getElementById('labor_stable');
+        transfer_to.value = transfer_from.value;
+      });
+      document.getElementById('rent_stable_transfer').addEventListener('click', function() {
+        const transfer_from = document.getElementById('rent_initial');
+        const transfer_to = document.getElementById('rent_stable');
+        transfer_to.value = transfer_from.value;
+      });
+      document.getElementById('interest_stable_transfer').addEventListener('click', function() {
+        const transfer_from = document.getElementById('interest_initial');
+        const transfer_to = document.getElementById('interest_stable');
+        transfer_to.value = transfer_from.value;
+      });
     </script>
   </body>
 </html>

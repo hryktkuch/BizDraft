@@ -13,6 +13,8 @@ env_variables:
   COMPETITOR_GENERATE_API_KEY: 'app-VlR79KWGDHSzHMmjCLPcFbnc'
   SECRET_KEY: 'bysbambs'
   FIREBASE_API_KEY: 'AIzaSyCu0_syEmpt5sTKVJkPDu79PUug3KRSXuk'
+  REASONING_INITIAL_API_KEY: 'app-0xQxGj3dUBtMQrLWb6MLIUw1'
+  REASONING_STABLE_API_KEY: 'app-yVMjb3H4FSCkf0vdKVdgrsUb'
 
 resources:
   cpu: 2
