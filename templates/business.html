@@ -28,10 +28,10 @@
           <div class="text-s"><div class="text-subheading subheading">事業内容</div></div>
           <div class="textarea-field textarea-1">
             <div class="label">事業内容</div>
-            <textarea class="textarea textarea-1">{{data.business_detail}}</textarea>
+            <textarea name="business_detail" class="textarea textarea-1">{{data.business_detail}}</textarea>
           </div>
           <div class="text-s"><div class="text-subheading subheading">取扱商品・サービスの内容</div></div>
-          <div class="frame-4">
+          <div class="frame-4" style="display:block;">
             <div class="input-field input-1 single-linebody-base">
               <div class="label">商品・サービスの内容１</div>
               <input type="text" name="product_1_detail" value="{{data.product_1_detail}}" class="input input-1">
@@ -44,7 +44,7 @@
               <div class="frame"><div class="text-4 single-linebody-base">%</div></div>
             </div>
           </div>
-          <div class="frame-5">
+          <div class="frame-5" {%if data.product_2_detail == ''%} style="display:none;" {% else %} style="display:block;" {%endif%}>
             <div class="input-field input-1 single-linebody-base">
               <div class="label">商品・サービスの内容２</div>
               <input type="text" name="product_2_detail" value="{{data.product_2_detail}}" class="input input-1">
@@ -57,7 +57,7 @@
               <div class="frame"><div class="text-4 single-linebody-base">%</div></div>
             </div>
           </div>
-          <div class="frame-6">
+          <div class="frame-6" {%if data.product_3_detail == ''%} style="display:none;" {% else %} style="display:block;" {%endif%}>
             <div class="input-field input-1 single-linebody-base">
               <div class="label">商品・サービスの内容３</div>
               <input type="text" name="product_3_detail" value="{{data.product_3_detail}}"  class="input input-1">
@@ -71,7 +71,7 @@
             </div>
           </div>
           <div class="frame-7">
-            <div class="button"><div class="button-1 single-linebody-base">入力欄を追加</div></div>
+            <button type="button" id="add_product" class="button button-1 single-linebody-base">入力欄を追加</button>
             <div class="text-s">
               <div class="text-small body-small">
                 入力欄は最大3個まで追加できます。<br />売上シェアの合計は100％になるようにしてください。
@@ -236,6 +236,16 @@
       document.getElementById('competitor_insert').addEventListener('click', function() {
         const insert = document.getElementById('competitor_ai').value;
         document.getElementById('competitor_detail').value += insert;
+      });
+
+      document.getElementById('add_product').addEventListener('click', function() {
+        const product2 = document.querySelector('.frame-5');
+        const product3 = document.querySelector('.frame-6');
+        if (product2.style.display === 'none') {
+          product2.style.display = 'block';
+        } else if (product3.style.display === 'none') {
+          product3.style.display = 'block';
+        }
       });
 
     </script>

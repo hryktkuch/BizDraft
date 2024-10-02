@@ -78,20 +78,20 @@
               <article class="input-with-unit-small">
                 <div class="input-field input-2 single-linebody-base">
                   <div class="label label-2">お借入残高</div>
-                  <input type="text" name="debt_1_amount" class="input-1 input-2" value="{{data.debt_1_amount}}">
+                  <input type="number" name="debt_1_amount" class="input-1 input-2" value="{{data.debt_1_amount}}">
                 </div>
                 <div class="frame-35 frame-8"><div class="text-2 single-linebody-base">円</div></div>
               </article>
               <article class="input-with-unit-small">
                 <div class="input-field input-2 single-linebody-base">
                   <div class="label label-2">年間返済額</div>
-                  <input type="text" name="debt_1_annual" class="input-1 input-2" value="{{data.debt_1_annual}}">
+                  <input type="number" name="debt_1_annual" class="input-1 input-2" value="{{data.debt_1_annual}}">
                 </div>
                 <div class="frame-35 frame-8"><div class="text-2 single-linebody-base">円</div></div>
               </article>
             </div>
           </div>
-          <div class="frame frame-8" id="debt_2" style="display:none;">
+          <div class="frame frame-8" id="debt_2" {% if data.debt_2_from != '' %} style="display:block;" {% else %} style="display:none;" {% endif %}>
             <div class="input-field-4 single-linebody-base">
               <div class="label label-2">お借入先名２</div>
               <input type="text" name="debt_2_from" class="input input-2" value="{{data.debt_2_from}}">
@@ -141,20 +141,20 @@
               <article class="input-with-unit-small">
                 <div class="input-field input-2 single-linebody-base">
                   <div class="label label-2">お借入残高</div>
-                  <input type="text" name="debt_2_amount" class="input-1 input-2" value="{{data.debt_2_amount}}">
+                  <input type="number" name="debt_2_amount" class="input-1 input-2" value="{{data.debt_2_amount}}">
                 </div>
                 <div class="frame-35 frame-8"><div class="text-2 single-linebody-base">円</div></div>
               </article>
               <article class="input-with-unit-small">
                 <div class="input-field input-2 single-linebody-base">
                   <div class="label label-2">年間返済額</div>
-                  <input type="text" name="debt_2_annual" class="input-1 input-2" value="{{data.debt_2_annual}}">
+                  <input type="number" name="debt_2_annual" class="input-1 input-2" value="{{data.debt_2_annual}}">
                 </div>
                 <div class="frame-35 frame-8"><div class="text-2 single-linebody-base">円</div></div>
               </article>
             </div>
           </div>
-          <div class="frame frame-8" id="debt_3" style="display:none;">
+          <div class="frame frame-8" id="debt_3" {% if data.debt_3_from != '' %} style="display:block;" {% else %} style="display:none;" {% endif %}>
             <div class="input-field-4 single-linebody-base">
               <div class="label label-2">お借入先名３</div>
               <input type="text" name="debt_3_from" class="input input-2" value="{{data.debt_3_from}}">
@@ -204,14 +204,14 @@
               <article class="input-with-unit-small">
                 <div class="input-field input-2 single-linebody-base">
                   <div class="label label-2">お借入残高</div>
-                  <input type="text" name="debt_3_amount" class="input-1 input-2" value="{{data.debt_3_amount}}">
+                  <input type="number" name="debt_3_amount" class="input-1 input-2" value="{{data.debt_3_amount}}">
                 </div>
                 <div class="frame-35 frame-8"><div class="text-2 single-linebody-base">円</div></div>
               </article>
               <article class="input-with-unit-small">
                 <div class="input-field input-2 single-linebody-base">
                   <div class="label label-2">年間返済額</div>
-                  <input type="text" name="debt_3_annual" class="input-1 input-2" value="{{data.debt_3_annual}}">
+                  <input type="number" name="debt_3_annual" class="input-1 input-2" value="{{data.debt_3_annual}}">
                 </div>
                 <div class="frame-35 frame-8"><div class="text-2 single-linebody-base">円</div></div>
               </article>

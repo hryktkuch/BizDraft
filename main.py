@@ -501,7 +501,48 @@ def download_pdf():
     record_ref = db.collection(session['user']['localId']).document('sougyou').collection('business').document('data')
     doc = record_ref.get()
     data = doc.to_dict() if doc.exists else {}
+    # business_detail paragraph    
+    # 絶対位置を指定してFrameを作成（x, y, 幅, 高さ）
+    frame_width = 152 * mm  # 横幅を指定
+    frame_height = 12 * mm  # 高さを指定
+    x_position = 47 * mm  # 左から1インチ
+    y_position = 174 * mm  # 下から9インチ（上に配置される）
+    long_text = data.get('business_detail', '（なし）')
+    add_paragraph(x_position, y_position, frame_width, frame_height, long_text, c)
     c.setFont('IPAGothic', 9)
+    if data.get('product_1_detail') != '':
+        c.drawString(54 * mm, 172 * mm, data.get('product_1_detail'))
+        c.drawString(180 * mm, 172 * mm, data.get('product_1_share'))
+    if data.get('product_2_detail') != '':
+        c.drawString(54 * mm, 167.5 * mm, data.get('product_2_detail'))
+        c.drawString(180 * mm, 167.5 * mm, data.get('product_2_share'))
+    if data.get('product_3_detail') != '':
+        c.drawString(54 * mm, 163 * mm, data.get('product_3_detail'))
+        c.drawString(180 * mm, 163 * mm, data.get('product_3_share'))
+    # strength_detail paragraph    
+    # 絶対位置を指定してFrameを作成（x, y, 幅, 高さ）
+    frame_width = 152 * mm  # 横幅を指定
+    frame_height = 17 * mm  # 高さを指定
+    x_position = 47 * mm  # 左から1インチ
+    y_position = 137 * mm  # 下から9インチ（上に配置される）
+    long_text = data.get('strength_detail', '（なし）')
+    add_paragraph(x_position, y_position, frame_width, frame_height, long_text, c)
+    # target_detail paragraph    
+    # 絶対位置を指定してFrameを作成（x, y, 幅, 高さ）
+    frame_width = 152 * mm  # 横幅を指定
+    frame_height = 17 * mm  # 高さを指定
+    x_position = 47 * mm  # 左から1インチ
+    y_position = 123 * mm  # 下から9インチ（上に配置される）
+    long_text = data.get('target_detail', '（なし）')
+    add_paragraph(x_position, y_position, frame_width, frame_height, long_text, c)
+    # competitor_detail paragraph    
+    # 絶対位置を指定してFrameを作成（x, y, 幅, 高さ）
+    frame_width = 152 * mm  # 横幅を指定
+    frame_height = 17 * mm  # 高さを指定
+    x_position = 47 * mm  # 左から1インチ
+    y_position = 111 * mm  # 下から9インチ（上に配置される）
+    long_text = data.get('competitor_detail', '（なし）')
+    add_paragraph(x_position, y_position, frame_width, frame_height, long_text, c)
     
     # firestore partner
     record_ref = db.collection(session['user']['localId']).document('sougyou').collection('partner').document('data')
@@ -543,27 +584,27 @@ def download_pdf():
         c.drawString(347 * mm, 236 * mm, str(debt_1_amount))
         c.drawString(372 * mm, 236 * mm, str(debt_1_annual))
     if data.get('debt_2_from') != '':
-        c.drawString(216 * mm, 232 * mm, data.get('debt_2_from'))
+        c.drawString(216 * mm, 231.5 * mm, data.get('debt_2_from'))
         c.setFont('IPAGothic', 12)
         match data.get('debt_2_usage'):
             case 'debt_2_usage_1':
-                c.drawString(262 * mm, 232 * mm, '■')
+                c.drawString(262 * mm, 231.5 * mm, '■')
             case 'debt_2_usage_2':
-                c.drawString(276 * mm, 232 * mm, '■')
+                c.drawString(276 * mm, 231.5 * mm, '■')
             case 'debt_2_usage_3':
-                c.drawString(290 * mm, 232 * mm, '■')
+                c.drawString(290 * mm, 231.5 * mm, '■')
             case 'debt_2_usage_4':
-                c.drawString(299 * mm, 232 * mm, '■')
+                c.drawString(299 * mm, 231.5 * mm, '■')
             case 'debt_2_usage_5':
-                c.drawString(313 * mm, 232 * mm, '■')
+                c.drawString(313 * mm, 231.5 * mm, '■')
             case 'debt_2_usage_6':
-                c.drawString(326 * mm, 232 * mm, '■')
+                c.drawString(326 * mm, 231.5 * mm, '■')
         c.setFont('IPAGothic', 9)
         debt_1_amount=int(float(data.get('debt_2_amount',0))/10000)
         print(debt_1_amount)
         debt_1_annual=int(float(data.get('debt_2_annual',0))/10000)
-        c.drawString(347 * mm, 232 * mm, str(debt_1_amount))
-        c.drawString(372 * mm, 232 * mm, str(debt_1_annual))
+        c.drawString(347 * mm, 231.5 * mm, str(debt_1_amount))
+        c.drawString(372 * mm, 231.5 * mm, str(debt_1_annual))
     if data.get('debt_3_from') != '':
         c.drawString(216 * mm, 227 * mm, data.get('debt_3_from'))
         c.setFont('IPAGothic', 12)
