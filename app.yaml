@@ -1,10 +1,10 @@
-runtime: python39
+runtime: python310
 
 entrypoint: gunicorn -b :$PORT main:app
 
 env_variables:
   FLASK_ENV: 'production'
-  # デプロイ時コメントアウト
+  # デプロイ時コメントアウト（これ！！！）
   GOOGLE_APPLICATION_CREDENTIALS: '/Users/hiroyukitakeuchi/flask/gcpkey/bizdraft-0ca5963f5ace.json'
   DIFY_API_URL: 'https://hryktkuch.xyz/v1/workflows/run'
   MOTIVATION_GENERATE_API_KEY: 'app-EcxuEWiGx0xyBa0H5plTq8DJ'
@@ -12,7 +12,7 @@ env_variables:
   TARGET_GENERATE_API_KEY: 'app-ygkcvPnwKMjaIxlbP3P3nOmA'
   COMPETITOR_GENERATE_API_KEY: 'app-VlR79KWGDHSzHMmjCLPcFbnc'
   SECRET_KEY: 'bysbambs'
-  FIREBASE_API_KEY: 'AIzaSyCu0_syEmpt5sTKVJkPDu79PUug3KRSXuk'
+  FIREBASE_API_KEY: 'AIzaSyDI2OGGFOdfdmd8WsRRUmpn3pzY_rkN1Pw'
   REASONING_INITIAL_API_KEY: 'app-0xQxGj3dUBtMQrLWb6MLIUw1'
   REASONING_STABLE_API_KEY: 'app-yVMjb3H4FSCkf0vdKVdgrsUb'
 
