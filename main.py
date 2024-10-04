@@ -901,7 +901,7 @@ def download_pdf():
     output_pdf_buffer.seek(0)
 
     # PDFをダウンロードとして返す
-    return send_file(output_pdf_buffer, as_attachment=False, download_name='final_output_with_position.pdf', mimetype='application/pdf')
+    return send_file(output_pdf_buffer, as_attachment=True, download_name='BizDraft_business_plan.pdf', mimetype='application/pdf')
 
 # アプリケーションのエントリーポイント
 if __name__ == '__main__':
