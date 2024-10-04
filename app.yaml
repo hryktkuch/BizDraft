@@ -5,7 +5,7 @@ entrypoint: gunicorn -b :$PORT main:app
 env_variables:
   FLASK_ENV: 'production'
   # デプロイ時コメントアウト（これ！！！）
-  GOOGLE_APPLICATION_CREDENTIALS: '/Users/hiroyukitakeuchi/flask/gcpkey/bizdraft-0ca5963f5ace.json'
+  # GOOGLE_APPLICATION_CREDENTIALS: '/Users/hiroyukitakeuchi/flask/gcpkey/bizdraft-0ca5963f5ace.json'
   DIFY_API_URL: 'https://hryktkuch.xyz/v1/workflows/run'
   MOTIVATION_GENERATE_API_KEY: 'app-EcxuEWiGx0xyBa0H5plTq8DJ'
   STRENGTH_GENERATE_API_KEY: 'app-oxluY2M18IFsBIdbjJKK0BUx'

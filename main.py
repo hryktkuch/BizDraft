@@ -160,7 +160,7 @@ def dashboard():
         status_others = 0
     if doc2.exists:
         data2 = doc2.to_dict()
-        if data2.get('business_name') != '':
+        if data2.get('business_name'):
             business_name = data2.get('business_name', '') + 'の'
         else:
             business_name = ''
@@ -448,26 +448,27 @@ def download_pdf():
     doc = record_ref.get()
     data = doc.to_dict() if doc.exists else {}
     c.setFont('IPAGothic', 12)
-    c.drawString(120 * mm, 275 * mm, data.get('familyname')+data.get('firstname'))
+    if data.get('familyname'):
+        c.drawString(120 * mm, 275 * mm, data.get('familyname')+data.get('firstname'))
     
     # firestore yourself
     record_ref = db.collection(session['user']['localId']).document('sougyou').collection('yourself').document('data')
     doc = record_ref.get()
     data = doc.to_dict() if doc.exists else {}
     c.setFont('IPAGothic', 9)
-    if data.get('record_year_1') != '':
+    if data.get('record_year_1'):
         c.drawString(22 * mm, 236 * mm, data.get('record_year_1')+'年'+data.get('record_month_1')+'月')
         c.drawString(50 * mm, 236 * mm, data.get('record_detail_1'))
-    if data.get('record_year_2') != '':
+    if data.get('record_year_2'):
         c.drawString(22 * mm, 231.5 * mm, data.get('record_year_2')+'年'+data.get('record_month_2')+'月')
         c.drawString(50 * mm, 231.5 * mm, data.get('record_detail_2'))
-    if data.get('record_year_3') != '':
+    if data.get('record_year_3'):
         c.drawString(22 * mm, 227 * mm, data.get('record_year_3')+'年'+data.get('record_month_3')+'月')
         c.drawString(50 * mm, 227 * mm, data.get('record_detail_3'))
-    if data.get('record_year_4') != '':
+    if data.get('record_year_4'):
         c.drawString(22 * mm, 222.5 * mm, data.get('record_year_4')+'年'+data.get('record_month_4')+'月')
         c.drawString(50 * mm, 222.5 * mm, data.get('record_detail_4'))
-    if data.get('record_year_5') != '':
+    if data.get('record_year_5'):
         c.drawString(22 * mm, 218 * mm, data.get('record_year_5')+'年'+data.get('record_month_5')+'月')
         c.drawString(50 * mm, 218 * mm, data.get('record_detail_5'))
     c.setFont('IPAGothic', 12)
@@ -513,13 +514,13 @@ def download_pdf():
     long_text = data.get('business_detail', '（なし）')
     add_paragraph(x_position, y_position, frame_width, frame_height, long_text, c)
     c.setFont('IPAGothic', 9)
-    if data.get('product_1_detail') != '':
+    if data.get('product_1_detail'):
         c.drawString(54 * mm, 172 * mm, data.get('product_1_detail'))
         c.drawString(180 * mm, 172 * mm, data.get('product_1_share'))
-    if data.get('product_2_detail') != '':
+    if data.get('product_2_detail'):
         c.drawString(54 * mm, 167.5 * mm, data.get('product_2_detail'))
         c.drawString(180 * mm, 167.5 * mm, data.get('product_2_share'))
-    if data.get('product_3_detail') != '':
+    if data.get('product_3_detail'):
         c.drawString(54 * mm, 163 * mm, data.get('product_3_detail'))
         c.drawString(180 * mm, 163 * mm, data.get('product_3_share'))
     # strength_detail paragraph    
@@ -552,7 +553,7 @@ def download_pdf():
     doc = record_ref.get()
     data = doc.to_dict() if doc.exists else {}
     c.setFont('IPAGothic', 8)
-    if data.get('buyer_1_name') != '':
+    if data.get('buyer_1_name'):
         c.drawString(26 * mm, 79.5 * mm, data.get('buyer_1_name'))
         c.drawString(26 * mm, 83.5 * mm, data.get('buyer_1_kana'))
         c.drawString(85 * mm, 81.5 * mm, data.get('buyer_1_address'))
@@ -560,7 +561,7 @@ def download_pdf():
         c.drawString(126 * mm, 81.5 * mm, data.get('buyer_1_kake'))
         c.drawString(157 * mm, 81.5 * mm, data.get('buyer_1_shime'))
         c.drawString(179 * mm, 81.5 * mm, data.get('buyer_1_uke'))
-    if data.get('buyer_2_name') != '':
+    if data.get('buyer_2_name'):
         c.drawString(26 * mm, 71.5 * mm, data.get('buyer_2_name'))
         c.drawString(26 * mm, 75.5 * mm, data.get('buyer_2_kana'))
         c.drawString(85 * mm, 73.5 * mm, data.get('buyer_2_address'))
@@ -568,12 +569,12 @@ def download_pdf():
         c.drawString(126 * mm, 73.5 * mm, data.get('buyer_2_kake'))
         c.drawString(157 * mm, 73.5 * mm, data.get('buyer_2_shime'))
         c.drawString(179 * mm, 73.5 * mm, data.get('buyer_2_uke'))
-    if data.get('buyer_others_share') != '':
+    if data.get('buyer_others_share'):
         c.drawString(111 * mm, 66 * mm, data.get('buyer_others_share'))
         c.drawString(126 * mm, 66 * mm, data.get('buyer_others_kake'))
         c.drawString(157 * mm, 66 * mm, data.get('buyer_others_shime'))
         c.drawString(179 * mm, 66 * mm, data.get('buyer_others_uke'))
-    if data.get('supplier_1_name') != '':
+    if data.get('supplier_1_name'):
         c.drawString(26 * mm, 55.5 * mm, data.get('supplier_1_name'))
         c.drawString(26 * mm, 59.5 * mm, data.get('supplier_1_kana'))
         c.drawString(85 * mm, 57.5 * mm, data.get('supplier_1_address'))
@@ -581,7 +582,7 @@ def download_pdf():
         c.drawString(126 * mm, 57.5 * mm, data.get('supplier_1_kake'))
         c.drawString(157 * mm, 57.5 * mm, data.get('supplier_1_shime'))
         c.drawString(179 * mm, 57.5 * mm, data.get('supplier_1_pay'))
-    if data.get('supplier_2_name') != '':
+    if data.get('supplier_2_name'):
         c.drawString(26 * mm, 48 * mm, data.get('supplier_2_name'))
         c.drawString(26 * mm, 52 * mm, data.get('supplier_2_kana'))
         c.drawString(85 * mm, 50 * mm, data.get('supplier_2_address'))
@@ -589,12 +590,12 @@ def download_pdf():
         c.drawString(126 * mm, 50 * mm, data.get('supplier_2_kake'))
         c.drawString(157 * mm, 50 * mm, data.get('supplier_2_shime'))
         c.drawString(179 * mm, 50 * mm, data.get('supplier_2_pay'))
-    if data.get('supplier_others_share') != '':
+    if data.get('supplier_others_share'):
         c.drawString(111 * mm, 42 * mm, data.get('supplier_others_share'))
         c.drawString(126 * mm, 42 * mm, data.get('supplier_others_kake'))
         c.drawString(157 * mm, 42 * mm, data.get('supplier_others_shime'))
         c.drawString(179 * mm, 42 * mm, data.get('supplier_others_pay'))
-    if data.get('subcontractor_name') != '':
+    if data.get('subcontractor_name'):
         c.drawString(26 * mm, 32 * mm, data.get('subcontractor_name'))
         c.drawString(26 * mm, 36 * mm, data.get('subcontractor_kana'))
         c.drawString(85 * mm, 34 * mm, data.get('subcontractor_address'))
@@ -602,17 +603,17 @@ def download_pdf():
         c.drawString(126 * mm, 34 * mm, data.get('subcontractor_kake'))
         c.drawString(157 * mm, 34 * mm, data.get('subcontractor_shime'))
         c.drawString(179 * mm, 34 * mm, data.get('subcontractor_pay'))
-    if data.get('subcontractor_others_share') != '':
+    if data.get('subcontractor_others_share'):
         c.drawString(111 * mm, 26 * mm, data.get('subcontractor_others_share'))
         c.drawString(126 * mm, 26 * mm, data.get('subcontractor_others_kake'))
         c.drawString(157 * mm, 26 * mm, data.get('subcontractor_others_shime'))
         c.drawString(179 * mm, 26 * mm, data.get('subcontractor_others_pay'))
-    if data.get('associate_1_name') != '':
+    if data.get('associate_1_name'):
         c.drawString(244 * mm, 263.5 * mm, data.get('associate_1_name'))
         c.drawString(244 * mm, 259 * mm, data.get('associate_1_president'))
         c.drawString(244 * mm, 254.5 * mm, data.get('associate_1_address'))
         c.drawString(244 * mm, 250 * mm, data.get('associate_1_job'))
-    if data.get('associate_2_name') != '':
+    if data.get('associate_2_name'):
         c.drawString(333 * mm, 263.5 * mm, data.get('associate_2_name'))
         c.drawString(333 * mm, 259 * mm, data.get('associate_2_president'))
         c.drawString(333 * mm, 254.5 * mm, data.get('associate_2_address'))
@@ -632,15 +633,15 @@ def download_pdf():
     if data.get('salestype') == '2':
         c.drawString(128 * mm, 158 * mm, man(data.get('unit_price_least')))
         c.drawString(170 * mm, 158 * mm, man(data.get('unit_price_most')))
-    if data.get('officer') != '':
+    if data.get('officer'):
         c.drawString(60 * mm, 105 * mm, data.get('officer'))
-    if data.get('employee') != '':
+    if data.get('employee'):
         c.drawString(124 * mm, 105 * mm, data.get('employee'))
-    if data.get('family_member') != '':
+    if data.get('family_member'):
         c.drawString(175 * mm, 107 * mm, data.get('family_member'))
-    if data.get('part_time') != '':
+    if data.get('part_time'):
         c.drawString(175 * mm, 103 * mm, data.get('part_time'))
-    if data.get('salary_closingday') != '':
+    if data.get('salary_closingday'):
         c.drawString(47 * mm, 20.5 * mm, data.get('salary_closingday'))
         c.drawString(78 * mm, 20.5 * mm, data.get('salary_payday'))
         c.drawString(145 * mm, 20.5 * mm, data.get('bonus_month_1'))
@@ -650,36 +651,42 @@ def download_pdf():
     ff=0
     jf=0
     bf=0
-    if data.get('self_fund') != '':
+    if data.get('self_fund'):
         c.drawString(372 * mm, 211 * mm, man(data.get('self_fund')))
         sf=int(man(data.get('self_fund')))
-    if data.get('family_fund') != '':
+    if data.get('family_fund'):
         c.drawString(372 * mm, 203 * mm, man(data.get('family_fund')))
         ff=int(man(data.get('family_fund')))
-    if data.get('japan_fund') != '':
+    if data.get('japan_fund'):
         c.drawString(372 * mm, 183 * mm, man(data.get('japan_fund')))
         jf=int(man(data.get('japan_fund')))
-    if data.get('bank_fund') != '':
+    if data.get('bank_fund'):
         c.drawString(372 * mm, 175 * mm, man(data.get('bank_fund')))
         bf=int(man(data.get('bank_fund')))
     c.drawString(372 * mm, 131 * mm, str(sf+ff+jf+bf))
 
-    if data.get('revenue_initial') != '':
+    revi=0
+    ci=0
+    li=0
+    ri=0
+    ii=0
+    oi=0
+    if data.get('revenue_initial'):
         c.drawString(245 * mm, 107 * mm, man(data.get('revenue_initial')))
         revi=int(man(data.get('revenue_initial')))
-    if data.get('cost_initial') != '':
+    if data.get('cost_initial'):
         c.drawString(245 * mm, 97 * mm, man(data.get('cost_initial')))
         ci=int(man(data.get('cost_initial')))
-    if data.get('labor_initial') != '':
+    if data.get('labor_initial'):
         c.drawString(245 * mm, 89 * mm, man(data.get('labor_initial')))
         li=int(man(data.get('labor_initial')))
-    if data.get('rent_initial') != '':
+    if data.get('rent_initial'):
         c.drawString(245 * mm, 81 * mm, man(data.get('rent_initial')))
         ri=int(man(data.get('rent_initial')))
-    if data.get('interest_initial') != '':
+    if data.get('interest_initial'):
         c.drawString(245 * mm, 73 * mm, man(data.get('interest_initial')))
         ii=int(man(data.get('interest_initial')))
-    if data.get('others_initial') != '':
+    if data.get('others_initial'):
         c.drawString(245 * mm, 66 * mm, man(data.get('others_initial')))
         oi=int(man(data.get('others_initial')))
     ei=li+ri+ii+oi
@@ -687,22 +694,22 @@ def download_pdf():
     c.drawString(245 * mm, 58 * mm, str(ei))
     c.drawString(245 * mm, 48 * mm, str(pi))
 
-    if data.get('revenue_stable') != '':
+    if data.get('revenue_stable'):
         c.drawString(270 * mm, 107 * mm, man(data.get('revenue_stable')))
         revi=int(man(data.get('revenue_stable')))
-    if data.get('cost_stable') != '':
+    if data.get('cost_stable'):
         c.drawString(270 * mm, 97 * mm, man(data.get('cost_stable')))
         ci=int(man(data.get('cost_stable')))
-    if data.get('labor_stable') != '':
+    if data.get('labor_stable'):
         c.drawString(270 * mm, 89 * mm, man(data.get('labor_stable')))
         li=int(man(data.get('labor_stable')))
-    if data.get('rent_stable') != '':
+    if data.get('rent_stable'):
         c.drawString(270 * mm, 81 * mm, man(data.get('rent_stable')))
         ri=int(man(data.get('rent_stable')))
-    if data.get('interest_stable') != '':
+    if data.get('interest_stable'):
         c.drawString(270 * mm, 73 * mm, man(data.get('interest_stable')))
         ii=int(man(data.get('interest_stable')))
-    if data.get('others_stable') != '':
+    if data.get('others_stable'):
         c.drawString(270 * mm, 66 * mm, man(data.get('others_stable')))
         oi=int(man(data.get('others_stable')))
     ei=li+ri+ii+oi
@@ -732,19 +739,19 @@ def download_pdf():
     w2=0
     w3=0
     w4=0
-    if data.get('workingcapital_1') != '':
+    if data.get('workingcapital_1'):
         c.drawString(222 * mm, 149 * mm, data.get('workingcapital_1'))
         c.drawString(288 * mm, 149 * mm, man(data.get('workingcapital_1_amount')))
         w1=int(man(data.get('workingcapital_1_amount')))
-    if data.get('workingcapital_2') != '':
+    if data.get('workingcapital_2'):
         c.drawString(222 * mm, 145 * mm, data.get('workingcapital_2'))
         c.drawString(288 * mm, 145 * mm, man(data.get('workingcapital_2_amount')))
         w2=int(man(data.get('workingcapital_2_amount')))
-    if data.get('workingcapital_3') != '':
+    if data.get('workingcapital_3'):
         c.drawString(222 * mm, 141 * mm, data.get('workingcapital_3'))
         c.drawString(288 * mm, 141 * mm, man(data.get('workingcapital_3_amount')))
         w3=int(man(data.get('workingcapital_3_amount')))
-    if data.get('workingcapital_4') != '':
+    if data.get('workingcapital_4'):
         c.drawString(222 * mm, 137 * mm, data.get('workingcapital_4'))
         c.drawString(288 * mm, 137 * mm, man(data.get('workingcapital_4_amount')))
         w4=int(man(data.get('workingcapital_4_amount')))
@@ -756,27 +763,27 @@ def download_pdf():
     e3=0
     e4=0
     e5=0
-    if data.get('equipment_1') != '':
+    if data.get('equipment_1'):
         c.drawString(222 * mm, 203 * mm, data.get('equipment_1'))
         c.drawString(263 * mm, 203 * mm, data.get('equipment_1_estimate'))
         c.drawString(288 * mm, 199 * mm, man(data.get('equipment_1_amount')))
         e1=int(man(data.get('equipment_1_amount')))
-    if data.get('equipment_2') != '':
+    if data.get('equipment_2'):
         c.drawString(222 * mm, 195 * mm, data.get('equipment_2'))
         c.drawString(263 * mm, 195 * mm, data.get('equipment_2_estimate'))
         c.drawString(288 * mm, 191 * mm, man(data.get('equipment_2_amount')))
         e2=int(man(data.get('equipment_2_amount')))
-    if data.get('equipment_3') != '':
+    if data.get('equipment_3'):
         c.drawString(222 * mm, 187 * mm, data.get('equipment_3'))
         c.drawString(263 * mm, 187 * mm, data.get('equipment_3_estimate'))
         c.drawString(288 * mm, 183 * mm, man(data.get('equipment_3_amount')))
         e3=int(man(data.get('equipment_3_amount')))
-    if data.get('equipment_4') != '':
+    if data.get('equipment_4'):
         c.drawString(222 * mm, 179 * mm, data.get('equipment_4'))
         c.drawString(263 * mm, 179 * mm, data.get('equipment_4_estimate'))
         c.drawString(288 * mm, 175 * mm, man(data.get('equipment_4_amount')))
         e4=int(man(data.get('equipment_4_amount')))
-    if data.get('equipment_5') != '':
+    if data.get('equipment_5'):
         c.drawString(222 * mm, 171 * mm, data.get('equipment_5'))
         c.drawString(263 * mm, 171 * mm, data.get('equipment_5_estimate'))
         c.drawString(288 * mm, 167 * mm, man(data.get('equipment_5_amount')))
@@ -795,7 +802,7 @@ def download_pdf():
     doc = record_ref.get()
     data = doc.to_dict() if doc.exists else {}
     c.setFont('IPAGothic', 9)
-    if data.get('debt_1_from') != '':
+    if data.get('debt_1_from'):
         c.drawString(216 * mm, 236 * mm, data.get('debt_1_from'))
         c.setFont('IPAGothic', 12)
         match data.get('debt_1_usage'):
@@ -817,7 +824,7 @@ def download_pdf():
         debt_1_annual=int(float(data.get('debt_1_annual',0))/10000)
         c.drawString(347 * mm, 236 * mm, str(debt_1_amount))
         c.drawString(372 * mm, 236 * mm, str(debt_1_annual))
-    if data.get('debt_2_from') != '':
+    if data.get('debt_2_from'):
         c.drawString(216 * mm, 231.5 * mm, data.get('debt_2_from'))
         c.setFont('IPAGothic', 12)
         match data.get('debt_2_usage'):
@@ -839,7 +846,7 @@ def download_pdf():
         debt_1_annual=int(float(data.get('debt_2_annual',0))/10000)
         c.drawString(347 * mm, 231.5 * mm, str(debt_1_amount))
         c.drawString(372 * mm, 231.5 * mm, str(debt_1_annual))
-    if data.get('debt_3_from') != '':
+    if data.get('debt_3_from'):
         c.drawString(216 * mm, 227 * mm, data.get('debt_3_from'))
         c.setFont('IPAGothic', 12)
         match data.get('debt_3_usage'):
